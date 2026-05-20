@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+  "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  launchd schedule for sync_all.sh — fires daily at 06:30 local time.
+
+  Installation (one-time):
+    cp scripts/com.yibi.sync-insights.plist ~/Library/LaunchAgents/
+    # edit the WorkingDirectory + StandardOut/Error paths if your repo is not
+    # at /Users/va7/Desktop/0516 yibi.studio/site
+    launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.yibi.sync-insights.plist
+    launchctl kickstart -k gui/$(id -u)/com.yibi.sync-insights   # run once now
+
+  Unload / disable:
+    launchctl bootout gui/$(id -u) ~/Library/LaunchAgents/com.yibi.sync-insights.plist
+
+  Manual trigger (anytime):
+    bash "/Users/va7/Desktop/0516 yibi.studio/site/scripts/sync_all.sh"
+
+  Notes:
+    - Mac must be on (or wake-on-schedule) for the run to fire.
+    - If the Mac is asleep at 06:30, launchd will fire at next wake.
+    - Logs go to logs/sync-YYYYMMDD-HHMMSS.log + logs/launchd-stdout/err.log
+-->
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.yibi.sync-insights</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>/bin/bash</string>
+        <string>/Users/va7/Desktop/0516 yibi.studio/site/scripts/sync_all.sh</string>
+    </array>
+
+    <key>WorkingDirectory</key>
+    <string>/Users/va7/Desktop/0516 yibi.studio/site</string>
+
+    <key>StartCalendarInterval</key>
+    <dict>
+        <key>Hour</key>
+        <integer>6</integer>
+        <key>Minute</key>
+        <integer>30</integer>
+    </dict>
+
+    <key>RunAtLoad</key>
+    <false/>
+
+    <key>StandardOutPath</key>
+    <string>/Users/va7/Desktop/0516 yibi.studio/site/logs/launchd-stdout.log</string>
+
+    <key>StandardErrorPath</key>
+    <string>/Users/va7/Desktop/0516 yibi.studio/site/logs/launchd-stderr.log</string>
+
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>PATH</key>
+        <string>/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+    </dict>
+</dict>
+</plist>
