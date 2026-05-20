@@ -18,7 +18,7 @@ const NAV_ITEMS: {
     dropdown: [
       { href: "/solutions/amazon-ai", label: "跨境电商 AI 运营系统", tag: "方案" },
       { href: "/solutions/content-factory", label: "社媒内容工厂", tag: "方案" },
-      { href: "/services/aigc", label: "电商 AIGC 套图", tag: "方案" },
+      { href: "/services/aigc", label: "AIGC", tag: "方案" },
       { href: "/solutions/llm-gateway", label: "企业级大模型网关", tag: "方案" },
       { href: "/services", label: "定制服务", tag: "服务" },
       { href: "/courses", label: "公开课程", tag: "课程" },
