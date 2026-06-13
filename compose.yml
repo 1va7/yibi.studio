@@ -1,0 +1,10 @@
+services:
+  yibi-studio:
+    build:
+      context: .
+    image: yibi-studio:dev
+    env_file:
+      - .env.production
+    ports:
+      - "3000:3000"
+    restart: unless-stopped

@@ -20,6 +20,24 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Docker Production Run
+
+This app is configured for Next.js standalone output and can run as a Node
+server in a Docker container.
+
+```bash
+cp .env.example .env.production
+docker build -t yibi-studio:dev .
+docker compose up -d
+```
+
+Open [http://localhost:3000](http://localhost:3000) after the container starts.
+
+For production, place the container behind a reverse proxy such as nginx or
+Caddy. The production code location note is `mediatyphoon:~/yibi.studio`;
+server credentials and deployment operations are intentionally not stored in
+Git.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:

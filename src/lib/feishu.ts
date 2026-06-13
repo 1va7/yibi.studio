@@ -121,13 +121,13 @@ async function listAllRecords(
   const out: BitableRecord[] = [];
   let pageToken: string | undefined = undefined;
   do {
+    const params: Record<string, string | number> = { page_size: 100 };
+    if (opts.view_id) params.view_id = opts.view_id;
+    if (pageToken) params.page_token = pageToken;
+
     const data: BitableListResponse | null = await feishuGet(
       `/open-apis/bitable/v1/apps/${BITABLE.app_token}/tables/${tableId}/records`,
-      {
-        page_size: 100,
-        ...(opts.view_id ? { view_id: opts.view_id } : {}),
-        ...(pageToken ? { page_token: pageToken } : {}),
-      },
+      params,
     );
     if (!data) break;
     out.push(...data.items);
