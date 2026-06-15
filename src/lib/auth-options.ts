@@ -1,7 +1,9 @@
 import { PrismaAdapter } from "@auth/prisma-adapter";
+import { custom } from "openid-client";
 import type { AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
+import { ProxyAgent } from "proxy-agent";
 import { prisma } from "@/lib/db";
 import { GitHubAppProvider } from "@/lib/github-app-provider";
 import { verifyPassword } from "@/lib/password";
@@ -37,6 +39,16 @@ const providers: AuthOptions["providers"] = [
     },
   }),
 ];
+
+const googleOAuthProxyAgent = process.env.GOOGLE_OAUTH_PROXY_URL
+  ? new ProxyAgent({
+      getProxyForUrl: () => process.env.GOOGLE_OAUTH_PROXY_URL || "",
+    })
+  : undefined;
+
+if (googleOAuthProxyAgent) {
+  custom.setHttpOptionsDefaults({ agent: googleOAuthProxyAgent });
+}
 
 if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET) {
   providers.push(
