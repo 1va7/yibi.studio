@@ -10,6 +10,8 @@ export type CreditConsumeInput = {
   metadata?: Prisma.InputJsonValue;
 };
 
+export type CreditGrantInput = CreditConsumeInput;
+
 export async function getCreditBalance(userId: string) {
   const account = await prisma.creditAccount.findUnique({
     where: { userId },
@@ -18,24 +20,32 @@ export async function getCreditBalance(userId: string) {
   return account?.balance ?? 0;
 }
 
-export async function grantCredits(params: {
-  userId: string;
-  amount: number;
-  moduleKey?: string;
-  actionKey?: string;
-  idempotencyKey?: string;
-  metadata?: Prisma.InputJsonValue;
-}) {
+export async function grantCredits(params: CreditGrantInput) {
   if (!Number.isInteger(params.amount) || params.amount <= 0) {
     throw new Error("amount must be a positive integer");
   }
 
-  const moduleKey = params.moduleKey ?? "system";
-  const actionKey = params.actionKey ?? "grant";
-  const idempotencyKey =
-    params.idempotencyKey ?? `${moduleKey}:${actionKey}:${crypto.randomUUID()}`;
-
   return prisma.$transaction(async (tx) => {
+    const existing = await tx.creditLedger.findUnique({
+      where: {
+        userId_moduleKey_actionKey_idempotencyKey: {
+          userId: params.userId,
+          moduleKey: params.moduleKey,
+          actionKey: params.actionKey,
+          idempotencyKey: params.idempotencyKey,
+        },
+      },
+    });
+    if (existing) {
+      return {
+        ok: true,
+        ledgerId: existing.id,
+        balanceBefore: existing.balanceBefore,
+        balanceAfter: existing.balanceAfter,
+        deduplicated: true,
+      };
+    }
+
     const current = await tx.creditAccount.upsert({
       where: { userId: params.userId },
       create: { userId: params.userId, balance: 0 },
@@ -52,12 +62,12 @@ export async function grantCredits(params: {
     const ledger = await tx.creditLedger.create({
       data: {
         userId: params.userId,
-        moduleKey,
-        actionKey,
+        moduleKey: params.moduleKey,
+        actionKey: params.actionKey,
         amount: params.amount,
         balanceBefore,
         balanceAfter: account.balance,
-        idempotencyKey,
+        idempotencyKey: params.idempotencyKey,
         metadata: params.metadata,
       },
     });
