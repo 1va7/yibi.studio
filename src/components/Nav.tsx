@@ -1,8 +1,10 @@
 "use client";
 
 import Link from "next/link";
+import { LogIn } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import AccountMenu, { type NavUser } from "@/components/AccountMenu";
 import { FEISHU_SCHEDULER_URL } from "@/lib/links";
 
 const NAV_ITEMS: {
@@ -37,13 +39,53 @@ const NAV_ITEMS: {
   { href: "/about", label: "关于", group: "about" },
 ];
 
+type MeResponse = {
+  user?: NavUser | null;
+};
+
 export default function Nav() {
   const pathname = usePathname();
   const [openGroup, setOpenGroup] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileGroup, setMobileGroup] = useState<string | null>(null);
+  const [currentPath, setCurrentPath] = useState(pathname);
+  const [accountUser, setAccountUser] = useState<NavUser | null>(null);
   const drawerRef = useRef<HTMLDivElement | null>(null);
   const burgerRef = useRef<HTMLButtonElement | null>(null);
+  const loginHref =
+    pathname === "/login"
+      ? "/login"
+      : `/login?callbackUrl=${encodeURIComponent(currentPath)}`;
+
+  useEffect(() => {
+    setCurrentPath(window.location.pathname + window.location.search);
+  }, [pathname]);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    async function loadSession() {
+      try {
+        const response = await fetch("/api/me", {
+          credentials: "include",
+          cache: "no-store",
+        });
+        if (!response.ok) {
+          if (!cancelled) setAccountUser(null);
+          return;
+        }
+        const data = (await response.json()) as MeResponse;
+        if (!cancelled) setAccountUser(data.user || null);
+      } catch {
+        if (!cancelled) setAccountUser(null);
+      }
+    }
+
+    loadSession();
+    return () => {
+      cancelled = true;
+    };
+  }, [pathname]);
 
   // Close on route change
   useEffect(() => {
@@ -126,6 +168,14 @@ export default function Nav() {
           })}
         </nav>
         <div className="nav-right">
+          {accountUser ? (
+            <AccountMenu user={accountUser} currentPath={currentPath} />
+          ) : (
+            <Link className="nav-login" href={loginHref} aria-label="登录">
+              <LogIn size={16} aria-hidden />
+              <span>登录</span>
+            </Link>
+          )}
           <a
             className="cta-mini"
             href={FEISHU_SCHEDULER_URL}

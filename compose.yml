@@ -1,10 +1,35 @@
 services:
+  postgres:
+    image: postgres:17-bookworm
+    environment:
+      POSTGRES_DB: yibi_studio
+      POSTGRES_USER: yibi
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-yibi_dev_password}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U yibi -d yibi_studio"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    restart: unless-stopped
+
   yibi-studio:
     build:
       context: .
     image: yibi-studio:dev
     env_file:
       - .env.production
+    environment:
+      DATABASE_URL: postgresql://yibi:${POSTGRES_PASSWORD:-yibi_dev_password}@postgres:5432/yibi_studio?schema=public
+    depends_on:
+      postgres:
+        condition: service_healthy
     ports:
       - "3000:3000"
     restart: unless-stopped
+
+volumes:
+  postgres-data:
