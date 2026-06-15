@@ -38,6 +38,12 @@ Caddy. The production code location note is `mediatyphoon:~/yibi.studio`;
 server credentials and deployment operations are intentionally not stored in
 Git.
 
+Production CI/CD is documented in
+[`docs/production-deploy.md`](docs/production-deploy.md). The standard
+production path builds on the `abee` self-hosted runner and deploys an immutable
+registry image to `mediatyphoon`; the production host pulls and runs the image
+with `compose.prod.yml` and `docker compose up -d --no-build`.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:

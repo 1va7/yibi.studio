@@ -1,0 +1,8 @@
+services:
+  yibi-studio:
+    image: ${YIBI_STUDIO_IMAGE:?Set YIBI_STUDIO_IMAGE to the registry image tag}
+    env_file:
+      - .env.production
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
