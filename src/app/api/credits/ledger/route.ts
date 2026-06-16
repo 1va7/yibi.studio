@@ -52,6 +52,7 @@ export async function GET(req: NextRequest) {
       moduleKey: item.moduleKey,
       actionKey: item.actionKey,
       amount: item.amount,
+      bucket: item.bucket,
       balanceBefore: item.balanceBefore,
       balanceAfter: item.balanceAfter,
       idempotencyKey: item.idempotencyKey,

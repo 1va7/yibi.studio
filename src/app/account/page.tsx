@@ -3,6 +3,7 @@ import Image from "next/image";
 import { redirect } from "next/navigation";
 import AccountDashboard from "@/components/AccountDashboard";
 import { getAuthSession } from "@/lib/auth";
+import { refreshSubscriptionCredits } from "@/lib/credits";
 import { prisma } from "@/lib/db";
 
 export const metadata: Metadata = {
@@ -30,6 +31,8 @@ export default async function AccountPage() {
     redirect("/login?callbackUrl=/account");
   }
 
+  await refreshSubscriptionCredits(userId);
+
   const user = await prisma.user.findUnique({
     where: { id: userId },
     select: {
@@ -46,7 +49,42 @@ export default async function AccountPage() {
       creditAccount: {
         select: {
           balance: true,
+          paidBalance: true,
+          subscriptionBalance: true,
         },
+      },
+      subscriptions: {
+        select: {
+          id: true,
+          plan: true,
+          status: true,
+          periodStart: true,
+          periodEnd: true,
+          entitlementEnd: true,
+          nextRefreshAt: true,
+        },
+        where: {
+          status: "active",
+        },
+        orderBy: {
+          entitlementEnd: "desc",
+        },
+        take: 1,
+      },
+      billingOrders: {
+        select: {
+          id: true,
+          orderNo: true,
+          itemType: true,
+          quantity: true,
+          payableAmountFen: true,
+          status: true,
+          createdAt: true,
+        },
+        orderBy: {
+          createdAt: "desc",
+        },
+        take: 8,
       },
       creditLedger: {
         select: {
@@ -54,6 +92,7 @@ export default async function AccountPage() {
           moduleKey: true,
           actionKey: true,
           amount: true,
+          bucket: true,
           balanceAfter: true,
           createdAt: true,
         },
@@ -71,6 +110,10 @@ export default async function AccountPage() {
 
   const displayName = user.name || user.email || "异璧用户";
   const providers = user.accounts.map((account) => account.provider);
+  const activeSubscription = user.subscriptions[0] ?? null;
+  const paidBalance = user.creditAccount?.paidBalance ?? user.creditAccount?.balance ?? 0;
+  const subscriptionBalance = user.creditAccount?.subscriptionBalance ?? 0;
+  const totalBalance = paidBalance + subscriptionBalance;
 
   return (
     <div className="account-page">
@@ -116,12 +159,81 @@ export default async function AccountPage() {
 
         <div className="account-panel">
           <h2>积分</h2>
-          <p className="credit-balance">{user.creditAccount?.balance ?? 0}</p>
-          <p className="credit-caption">当前可用余额</p>
+          <p className="credit-balance">{totalBalance}</p>
+          <p className="credit-caption">当前可用总额</p>
+          <dl className="credit-split">
+            <div>
+              <dt>订阅额度</dt>
+              <dd>{subscriptionBalance}</dd>
+            </div>
+            <div>
+              <dt>按量余额</dt>
+              <dd>{paidBalance}</dd>
+            </div>
+          </dl>
         </div>
       </section>
 
+      <section className="account-panel account-subscription" aria-label="订阅状态">
+        <div className="account-panel-head">
+          <h2>订阅</h2>
+          <span>{activeSubscription?.status ?? "inactive"}</span>
+        </div>
+        {activeSubscription ? (
+          <dl className="account-facts">
+            <div>
+              <dt>Plan</dt>
+              <dd>{activeSubscription.plan === "yearly" ? "年付" : "月付"}</dd>
+            </div>
+            <div>
+              <dt>当前周期</dt>
+              <dd>
+                {formatDate(activeSubscription.periodStart)} 至{" "}
+                {formatDate(activeSubscription.periodEnd)}
+              </dd>
+            </div>
+            <div>
+              <dt>权益到期</dt>
+              <dd>{formatDate(activeSubscription.entitlementEnd)}</dd>
+            </div>
+          </dl>
+        ) : (
+          <p className="account-empty">暂无有效订阅。</p>
+        )}
+      </section>
+
       <AccountDashboard signOutCallbackUrl="/" />
+
+      <section className="account-panel account-orders" aria-labelledby="orders-title">
+        <div className="account-panel-head">
+          <h2 id="orders-title">最近订单</h2>
+          <span>最近 8 条</span>
+        </div>
+        {user.billingOrders.length ? (
+          <div className="ledger-table">
+            <div className="ledger-row order-row ledger-head">
+              <span>订单号</span>
+              <span>项目</span>
+              <span>数量</span>
+              <span>实付</span>
+              <span>状态</span>
+              <span>时间</span>
+            </div>
+            {user.billingOrders.map((item) => (
+              <div className="ledger-row order-row" key={item.id}>
+                <span>{item.orderNo}</span>
+                <span>{item.itemType}</span>
+                <span>{item.quantity}</span>
+                <span>¥{(item.payableAmountFen / 100).toFixed(2)}</span>
+                <span>{item.status}</span>
+                <span>{formatDate(item.createdAt)}</span>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p className="account-empty">暂无订单。</p>
+        )}
+      </section>
 
       <section className="account-panel account-ledger" aria-labelledby="ledger-title">
         <div className="account-panel-head">
@@ -133,6 +245,7 @@ export default async function AccountPage() {
             <div className="ledger-row ledger-head">
               <span>模块</span>
               <span>动作</span>
+              <span>桶</span>
               <span>变动</span>
               <span>余额</span>
               <span>时间</span>
@@ -141,6 +254,7 @@ export default async function AccountPage() {
               <div className="ledger-row" key={item.id}>
                 <span>{item.moduleKey}</span>
                 <span>{item.actionKey}</span>
+                <span>{item.bucket}</span>
                 <span className={item.amount >= 0 ? "is-plus" : "is-minus"}>
                   {item.amount > 0 ? `+${item.amount}` : item.amount}
                 </span>

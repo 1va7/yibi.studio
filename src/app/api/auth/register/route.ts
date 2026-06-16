@@ -41,7 +41,7 @@ export async function POST(req: NextRequest) {
         create: { passwordHash },
       },
       creditAccount: {
-        create: { balance: 0 },
+        create: { balance: 0, paidBalance: 0, subscriptionBalance: 0 },
       },
     },
     update: {
@@ -51,7 +51,7 @@ export async function POST(req: NextRequest) {
       },
       creditAccount: {
         upsert: {
-          create: { balance: 0 },
+          create: { balance: 0, paidBalance: 0, subscriptionBalance: 0 },
           update: {},
         },
       },

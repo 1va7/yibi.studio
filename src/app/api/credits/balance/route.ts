@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { requireUser } from "@/lib/auth";
-import { getCreditBalance } from "@/lib/credits";
+import { getCreditAccountSnapshot } from "@/lib/credits";
 
 export async function GET(req: NextRequest) {
   const auth = await requireUser(req);
@@ -8,10 +8,13 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ ok: false, error: "unauthorized" }, { status: 401 });
   }
 
+  const credits = await getCreditAccountSnapshot(auth.userId);
   return NextResponse.json({
     ok: true,
     userId: auth.userId,
-    creditBalance: await getCreditBalance(auth.userId),
+    creditBalance: credits.totalBalance,
+    paidBalance: credits.paidBalance,
+    subscriptionBalance: credits.subscriptionBalance,
   });
 }
 

@@ -207,6 +207,9 @@ export type UserWhereInput = {
   password?: Prisma.XOR<Prisma.UserPasswordNullableScalarRelationFilter, Prisma.UserPasswordWhereInput> | null
   creditAccount?: Prisma.XOR<Prisma.CreditAccountNullableScalarRelationFilter, Prisma.CreditAccountWhereInput> | null
   creditLedger?: Prisma.CreditLedgerListRelationFilter
+  subscriptions?: Prisma.SubscriptionListRelationFilter
+  billingOrders?: Prisma.BillingOrderListRelationFilter
+  discountCodes?: Prisma.DiscountCodeListRelationFilter
   moduleApiKeys?: Prisma.ModuleApiKeyListRelationFilter
 }
 
@@ -224,6 +227,9 @@ export type UserOrderByWithRelationInput = {
   password?: Prisma.UserPasswordOrderByWithRelationInput
   creditAccount?: Prisma.CreditAccountOrderByWithRelationInput
   creditLedger?: Prisma.CreditLedgerOrderByRelationAggregateInput
+  subscriptions?: Prisma.SubscriptionOrderByRelationAggregateInput
+  billingOrders?: Prisma.BillingOrderOrderByRelationAggregateInput
+  discountCodes?: Prisma.DiscountCodeOrderByRelationAggregateInput
   moduleApiKeys?: Prisma.ModuleApiKeyOrderByRelationAggregateInput
 }
 
@@ -244,6 +250,9 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   password?: Prisma.XOR<Prisma.UserPasswordNullableScalarRelationFilter, Prisma.UserPasswordWhereInput> | null
   creditAccount?: Prisma.XOR<Prisma.CreditAccountNullableScalarRelationFilter, Prisma.CreditAccountWhereInput> | null
   creditLedger?: Prisma.CreditLedgerListRelationFilter
+  subscriptions?: Prisma.SubscriptionListRelationFilter
+  billingOrders?: Prisma.BillingOrderListRelationFilter
+  discountCodes?: Prisma.DiscountCodeListRelationFilter
   moduleApiKeys?: Prisma.ModuleApiKeyListRelationFilter
 }, "id" | "email">
 
@@ -289,6 +298,9 @@ export type UserCreateInput = {
   password?: Prisma.UserPasswordCreateNestedOneWithoutUserInput
   creditAccount?: Prisma.CreditAccountCreateNestedOneWithoutUserInput
   creditLedger?: Prisma.CreditLedgerCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  billingOrders?: Prisma.BillingOrderCreateNestedManyWithoutUserInput
+  discountCodes?: Prisma.DiscountCodeCreateNestedManyWithoutRedeemedByUserInput
   moduleApiKeys?: Prisma.ModuleApiKeyCreateNestedManyWithoutUserInput
 }
 
@@ -306,6 +318,9 @@ export type UserUncheckedCreateInput = {
   password?: Prisma.UserPasswordUncheckedCreateNestedOneWithoutUserInput
   creditAccount?: Prisma.CreditAccountUncheckedCreateNestedOneWithoutUserInput
   creditLedger?: Prisma.CreditLedgerUncheckedCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  billingOrders?: Prisma.BillingOrderUncheckedCreateNestedManyWithoutUserInput
+  discountCodes?: Prisma.DiscountCodeUncheckedCreateNestedManyWithoutRedeemedByUserInput
   moduleApiKeys?: Prisma.ModuleApiKeyUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -323,6 +338,9 @@ export type UserUpdateInput = {
   password?: Prisma.UserPasswordUpdateOneWithoutUserNestedInput
   creditAccount?: Prisma.CreditAccountUpdateOneWithoutUserNestedInput
   creditLedger?: Prisma.CreditLedgerUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  billingOrders?: Prisma.BillingOrderUpdateManyWithoutUserNestedInput
+  discountCodes?: Prisma.DiscountCodeUpdateManyWithoutRedeemedByUserNestedInput
   moduleApiKeys?: Prisma.ModuleApiKeyUpdateManyWithoutUserNestedInput
 }
 
@@ -340,6 +358,9 @@ export type UserUncheckedUpdateInput = {
   password?: Prisma.UserPasswordUncheckedUpdateOneWithoutUserNestedInput
   creditAccount?: Prisma.CreditAccountUncheckedUpdateOneWithoutUserNestedInput
   creditLedger?: Prisma.CreditLedgerUncheckedUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  billingOrders?: Prisma.BillingOrderUncheckedUpdateManyWithoutUserNestedInput
+  discountCodes?: Prisma.DiscountCodeUncheckedUpdateManyWithoutRedeemedByUserNestedInput
   moduleApiKeys?: Prisma.ModuleApiKeyUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -520,6 +541,50 @@ export type UserUpdateOneRequiredWithoutCreditLedgerNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCreditLedgerInput, Prisma.UserUpdateWithoutCreditLedgerInput>, Prisma.UserUncheckedUpdateWithoutCreditLedgerInput>
 }
 
+export type UserCreateNestedOneWithoutSubscriptionsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSubscriptionsInput, Prisma.UserUncheckedCreateWithoutSubscriptionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSubscriptionsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutSubscriptionsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSubscriptionsInput, Prisma.UserUncheckedCreateWithoutSubscriptionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSubscriptionsInput
+  upsert?: Prisma.UserUpsertWithoutSubscriptionsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSubscriptionsInput, Prisma.UserUpdateWithoutSubscriptionsInput>, Prisma.UserUncheckedUpdateWithoutSubscriptionsInput>
+}
+
+export type UserCreateNestedOneWithoutBillingOrdersInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutBillingOrdersInput, Prisma.UserUncheckedCreateWithoutBillingOrdersInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutBillingOrdersInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutBillingOrdersNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutBillingOrdersInput, Prisma.UserUncheckedCreateWithoutBillingOrdersInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutBillingOrdersInput
+  upsert?: Prisma.UserUpsertWithoutBillingOrdersInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutBillingOrdersInput, Prisma.UserUpdateWithoutBillingOrdersInput>, Prisma.UserUncheckedUpdateWithoutBillingOrdersInput>
+}
+
+export type UserCreateNestedOneWithoutDiscountCodesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDiscountCodesInput, Prisma.UserUncheckedCreateWithoutDiscountCodesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDiscountCodesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutDiscountCodesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDiscountCodesInput, Prisma.UserUncheckedCreateWithoutDiscountCodesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDiscountCodesInput
+  upsert?: Prisma.UserUpsertWithoutDiscountCodesInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutDiscountCodesInput, Prisma.UserUpdateWithoutDiscountCodesInput>, Prisma.UserUncheckedUpdateWithoutDiscountCodesInput>
+}
+
 export type UserCreateNestedOneWithoutModuleApiKeysInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutModuleApiKeysInput, Prisma.UserUncheckedCreateWithoutModuleApiKeysInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutModuleApiKeysInput
@@ -549,6 +614,9 @@ export type UserCreateWithoutAccountsInput = {
   password?: Prisma.UserPasswordCreateNestedOneWithoutUserInput
   creditAccount?: Prisma.CreditAccountCreateNestedOneWithoutUserInput
   creditLedger?: Prisma.CreditLedgerCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  billingOrders?: Prisma.BillingOrderCreateNestedManyWithoutUserInput
+  discountCodes?: Prisma.DiscountCodeCreateNestedManyWithoutRedeemedByUserInput
   moduleApiKeys?: Prisma.ModuleApiKeyCreateNestedManyWithoutUserInput
 }
 
@@ -565,6 +633,9 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   password?: Prisma.UserPasswordUncheckedCreateNestedOneWithoutUserInput
   creditAccount?: Prisma.CreditAccountUncheckedCreateNestedOneWithoutUserInput
   creditLedger?: Prisma.CreditLedgerUncheckedCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  billingOrders?: Prisma.BillingOrderUncheckedCreateNestedManyWithoutUserInput
+  discountCodes?: Prisma.DiscountCodeUncheckedCreateNestedManyWithoutRedeemedByUserInput
   moduleApiKeys?: Prisma.ModuleApiKeyUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -597,6 +668,9 @@ export type UserUpdateWithoutAccountsInput = {
   password?: Prisma.UserPasswordUpdateOneWithoutUserNestedInput
   creditAccount?: Prisma.CreditAccountUpdateOneWithoutUserNestedInput
   creditLedger?: Prisma.CreditLedgerUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  billingOrders?: Prisma.BillingOrderUpdateManyWithoutUserNestedInput
+  discountCodes?: Prisma.DiscountCodeUpdateManyWithoutRedeemedByUserNestedInput
   moduleApiKeys?: Prisma.ModuleApiKeyUpdateManyWithoutUserNestedInput
 }
 
@@ -613,6 +687,9 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   password?: Prisma.UserPasswordUncheckedUpdateOneWithoutUserNestedInput
   creditAccount?: Prisma.CreditAccountUncheckedUpdateOneWithoutUserNestedInput
   creditLedger?: Prisma.CreditLedgerUncheckedUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  billingOrders?: Prisma.BillingOrderUncheckedUpdateManyWithoutUserNestedInput
+  discountCodes?: Prisma.DiscountCodeUncheckedUpdateManyWithoutRedeemedByUserNestedInput
   moduleApiKeys?: Prisma.ModuleApiKeyUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -629,6 +706,9 @@ export type UserCreateWithoutSessionsInput = {
   password?: Prisma.UserPasswordCreateNestedOneWithoutUserInput
   creditAccount?: Prisma.CreditAccountCreateNestedOneWithoutUserInput
   creditLedger?: Prisma.CreditLedgerCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  billingOrders?: Prisma.BillingOrderCreateNestedManyWithoutUserInput
+  discountCodes?: Prisma.DiscountCodeCreateNestedManyWithoutRedeemedByUserInput
   moduleApiKeys?: Prisma.ModuleApiKeyCreateNestedManyWithoutUserInput
 }
 
@@ -645,6 +725,9 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   password?: Prisma.UserPasswordUncheckedCreateNestedOneWithoutUserInput
   creditAccount?: Prisma.CreditAccountUncheckedCreateNestedOneWithoutUserInput
   creditLedger?: Prisma.CreditLedgerUncheckedCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  billingOrders?: Prisma.BillingOrderUncheckedCreateNestedManyWithoutUserInput
+  discountCodes?: Prisma.DiscountCodeUncheckedCreateNestedManyWithoutRedeemedByUserInput
   moduleApiKeys?: Prisma.ModuleApiKeyUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -677,6 +760,9 @@ export type UserUpdateWithoutSessionsInput = {
   password?: Prisma.UserPasswordUpdateOneWithoutUserNestedInput
   creditAccount?: Prisma.CreditAccountUpdateOneWithoutUserNestedInput
   creditLedger?: Prisma.CreditLedgerUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  billingOrders?: Prisma.BillingOrderUpdateManyWithoutUserNestedInput
+  discountCodes?: Prisma.DiscountCodeUpdateManyWithoutRedeemedByUserNestedInput
   moduleApiKeys?: Prisma.ModuleApiKeyUpdateManyWithoutUserNestedInput
 }
 
@@ -693,6 +779,9 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   password?: Prisma.UserPasswordUncheckedUpdateOneWithoutUserNestedInput
   creditAccount?: Prisma.CreditAccountUncheckedUpdateOneWithoutUserNestedInput
   creditLedger?: Prisma.CreditLedgerUncheckedUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  billingOrders?: Prisma.BillingOrderUncheckedUpdateManyWithoutUserNestedInput
+  discountCodes?: Prisma.DiscountCodeUncheckedUpdateManyWithoutRedeemedByUserNestedInput
   moduleApiKeys?: Prisma.ModuleApiKeyUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -709,6 +798,9 @@ export type UserCreateWithoutPasswordInput = {
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   creditAccount?: Prisma.CreditAccountCreateNestedOneWithoutUserInput
   creditLedger?: Prisma.CreditLedgerCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  billingOrders?: Prisma.BillingOrderCreateNestedManyWithoutUserInput
+  discountCodes?: Prisma.DiscountCodeCreateNestedManyWithoutRedeemedByUserInput
   moduleApiKeys?: Prisma.ModuleApiKeyCreateNestedManyWithoutUserInput
 }
 
@@ -725,6 +817,9 @@ export type UserUncheckedCreateWithoutPasswordInput = {
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   creditAccount?: Prisma.CreditAccountUncheckedCreateNestedOneWithoutUserInput
   creditLedger?: Prisma.CreditLedgerUncheckedCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  billingOrders?: Prisma.BillingOrderUncheckedCreateNestedManyWithoutUserInput
+  discountCodes?: Prisma.DiscountCodeUncheckedCreateNestedManyWithoutRedeemedByUserInput
   moduleApiKeys?: Prisma.ModuleApiKeyUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -757,6 +852,9 @@ export type UserUpdateWithoutPasswordInput = {
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   creditAccount?: Prisma.CreditAccountUpdateOneWithoutUserNestedInput
   creditLedger?: Prisma.CreditLedgerUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  billingOrders?: Prisma.BillingOrderUpdateManyWithoutUserNestedInput
+  discountCodes?: Prisma.DiscountCodeUpdateManyWithoutRedeemedByUserNestedInput
   moduleApiKeys?: Prisma.ModuleApiKeyUpdateManyWithoutUserNestedInput
 }
 
@@ -773,6 +871,9 @@ export type UserUncheckedUpdateWithoutPasswordInput = {
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   creditAccount?: Prisma.CreditAccountUncheckedUpdateOneWithoutUserNestedInput
   creditLedger?: Prisma.CreditLedgerUncheckedUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  billingOrders?: Prisma.BillingOrderUncheckedUpdateManyWithoutUserNestedInput
+  discountCodes?: Prisma.DiscountCodeUncheckedUpdateManyWithoutRedeemedByUserNestedInput
   moduleApiKeys?: Prisma.ModuleApiKeyUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -789,6 +890,9 @@ export type UserCreateWithoutCreditAccountInput = {
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   password?: Prisma.UserPasswordCreateNestedOneWithoutUserInput
   creditLedger?: Prisma.CreditLedgerCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  billingOrders?: Prisma.BillingOrderCreateNestedManyWithoutUserInput
+  discountCodes?: Prisma.DiscountCodeCreateNestedManyWithoutRedeemedByUserInput
   moduleApiKeys?: Prisma.ModuleApiKeyCreateNestedManyWithoutUserInput
 }
 
@@ -805,6 +909,9 @@ export type UserUncheckedCreateWithoutCreditAccountInput = {
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   password?: Prisma.UserPasswordUncheckedCreateNestedOneWithoutUserInput
   creditLedger?: Prisma.CreditLedgerUncheckedCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  billingOrders?: Prisma.BillingOrderUncheckedCreateNestedManyWithoutUserInput
+  discountCodes?: Prisma.DiscountCodeUncheckedCreateNestedManyWithoutRedeemedByUserInput
   moduleApiKeys?: Prisma.ModuleApiKeyUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -837,6 +944,9 @@ export type UserUpdateWithoutCreditAccountInput = {
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   password?: Prisma.UserPasswordUpdateOneWithoutUserNestedInput
   creditLedger?: Prisma.CreditLedgerUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  billingOrders?: Prisma.BillingOrderUpdateManyWithoutUserNestedInput
+  discountCodes?: Prisma.DiscountCodeUpdateManyWithoutRedeemedByUserNestedInput
   moduleApiKeys?: Prisma.ModuleApiKeyUpdateManyWithoutUserNestedInput
 }
 
@@ -853,6 +963,9 @@ export type UserUncheckedUpdateWithoutCreditAccountInput = {
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   password?: Prisma.UserPasswordUncheckedUpdateOneWithoutUserNestedInput
   creditLedger?: Prisma.CreditLedgerUncheckedUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  billingOrders?: Prisma.BillingOrderUncheckedUpdateManyWithoutUserNestedInput
+  discountCodes?: Prisma.DiscountCodeUncheckedUpdateManyWithoutRedeemedByUserNestedInput
   moduleApiKeys?: Prisma.ModuleApiKeyUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -869,6 +982,9 @@ export type UserCreateWithoutCreditLedgerInput = {
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   password?: Prisma.UserPasswordCreateNestedOneWithoutUserInput
   creditAccount?: Prisma.CreditAccountCreateNestedOneWithoutUserInput
+  subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  billingOrders?: Prisma.BillingOrderCreateNestedManyWithoutUserInput
+  discountCodes?: Prisma.DiscountCodeCreateNestedManyWithoutRedeemedByUserInput
   moduleApiKeys?: Prisma.ModuleApiKeyCreateNestedManyWithoutUserInput
 }
 
@@ -885,6 +1001,9 @@ export type UserUncheckedCreateWithoutCreditLedgerInput = {
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   password?: Prisma.UserPasswordUncheckedCreateNestedOneWithoutUserInput
   creditAccount?: Prisma.CreditAccountUncheckedCreateNestedOneWithoutUserInput
+  subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  billingOrders?: Prisma.BillingOrderUncheckedCreateNestedManyWithoutUserInput
+  discountCodes?: Prisma.DiscountCodeUncheckedCreateNestedManyWithoutRedeemedByUserInput
   moduleApiKeys?: Prisma.ModuleApiKeyUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -917,6 +1036,9 @@ export type UserUpdateWithoutCreditLedgerInput = {
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   password?: Prisma.UserPasswordUpdateOneWithoutUserNestedInput
   creditAccount?: Prisma.CreditAccountUpdateOneWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  billingOrders?: Prisma.BillingOrderUpdateManyWithoutUserNestedInput
+  discountCodes?: Prisma.DiscountCodeUpdateManyWithoutRedeemedByUserNestedInput
   moduleApiKeys?: Prisma.ModuleApiKeyUpdateManyWithoutUserNestedInput
 }
 
@@ -933,6 +1055,285 @@ export type UserUncheckedUpdateWithoutCreditLedgerInput = {
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   password?: Prisma.UserPasswordUncheckedUpdateOneWithoutUserNestedInput
   creditAccount?: Prisma.CreditAccountUncheckedUpdateOneWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  billingOrders?: Prisma.BillingOrderUncheckedUpdateManyWithoutUserNestedInput
+  discountCodes?: Prisma.DiscountCodeUncheckedUpdateManyWithoutRedeemedByUserNestedInput
+  moduleApiKeys?: Prisma.ModuleApiKeyUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutSubscriptionsInput = {
+  id?: string
+  name?: string | null
+  email?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  roles?: Prisma.UserCreaterolesInput | string[]
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  password?: Prisma.UserPasswordCreateNestedOneWithoutUserInput
+  creditAccount?: Prisma.CreditAccountCreateNestedOneWithoutUserInput
+  creditLedger?: Prisma.CreditLedgerCreateNestedManyWithoutUserInput
+  billingOrders?: Prisma.BillingOrderCreateNestedManyWithoutUserInput
+  discountCodes?: Prisma.DiscountCodeCreateNestedManyWithoutRedeemedByUserInput
+  moduleApiKeys?: Prisma.ModuleApiKeyCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutSubscriptionsInput = {
+  id?: string
+  name?: string | null
+  email?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  roles?: Prisma.UserCreaterolesInput | string[]
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  password?: Prisma.UserPasswordUncheckedCreateNestedOneWithoutUserInput
+  creditAccount?: Prisma.CreditAccountUncheckedCreateNestedOneWithoutUserInput
+  creditLedger?: Prisma.CreditLedgerUncheckedCreateNestedManyWithoutUserInput
+  billingOrders?: Prisma.BillingOrderUncheckedCreateNestedManyWithoutUserInput
+  discountCodes?: Prisma.DiscountCodeUncheckedCreateNestedManyWithoutRedeemedByUserInput
+  moduleApiKeys?: Prisma.ModuleApiKeyUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutSubscriptionsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutSubscriptionsInput, Prisma.UserUncheckedCreateWithoutSubscriptionsInput>
+}
+
+export type UserUpsertWithoutSubscriptionsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutSubscriptionsInput, Prisma.UserUncheckedUpdateWithoutSubscriptionsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutSubscriptionsInput, Prisma.UserUncheckedCreateWithoutSubscriptionsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutSubscriptionsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutSubscriptionsInput, Prisma.UserUncheckedUpdateWithoutSubscriptionsInput>
+}
+
+export type UserUpdateWithoutSubscriptionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  roles?: Prisma.UserUpdaterolesInput | string[]
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  password?: Prisma.UserPasswordUpdateOneWithoutUserNestedInput
+  creditAccount?: Prisma.CreditAccountUpdateOneWithoutUserNestedInput
+  creditLedger?: Prisma.CreditLedgerUpdateManyWithoutUserNestedInput
+  billingOrders?: Prisma.BillingOrderUpdateManyWithoutUserNestedInput
+  discountCodes?: Prisma.DiscountCodeUpdateManyWithoutRedeemedByUserNestedInput
+  moduleApiKeys?: Prisma.ModuleApiKeyUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutSubscriptionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  roles?: Prisma.UserUpdaterolesInput | string[]
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  password?: Prisma.UserPasswordUncheckedUpdateOneWithoutUserNestedInput
+  creditAccount?: Prisma.CreditAccountUncheckedUpdateOneWithoutUserNestedInput
+  creditLedger?: Prisma.CreditLedgerUncheckedUpdateManyWithoutUserNestedInput
+  billingOrders?: Prisma.BillingOrderUncheckedUpdateManyWithoutUserNestedInput
+  discountCodes?: Prisma.DiscountCodeUncheckedUpdateManyWithoutRedeemedByUserNestedInput
+  moduleApiKeys?: Prisma.ModuleApiKeyUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutBillingOrdersInput = {
+  id?: string
+  name?: string | null
+  email?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  roles?: Prisma.UserCreaterolesInput | string[]
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  password?: Prisma.UserPasswordCreateNestedOneWithoutUserInput
+  creditAccount?: Prisma.CreditAccountCreateNestedOneWithoutUserInput
+  creditLedger?: Prisma.CreditLedgerCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  discountCodes?: Prisma.DiscountCodeCreateNestedManyWithoutRedeemedByUserInput
+  moduleApiKeys?: Prisma.ModuleApiKeyCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutBillingOrdersInput = {
+  id?: string
+  name?: string | null
+  email?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  roles?: Prisma.UserCreaterolesInput | string[]
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  password?: Prisma.UserPasswordUncheckedCreateNestedOneWithoutUserInput
+  creditAccount?: Prisma.CreditAccountUncheckedCreateNestedOneWithoutUserInput
+  creditLedger?: Prisma.CreditLedgerUncheckedCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  discountCodes?: Prisma.DiscountCodeUncheckedCreateNestedManyWithoutRedeemedByUserInput
+  moduleApiKeys?: Prisma.ModuleApiKeyUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutBillingOrdersInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutBillingOrdersInput, Prisma.UserUncheckedCreateWithoutBillingOrdersInput>
+}
+
+export type UserUpsertWithoutBillingOrdersInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutBillingOrdersInput, Prisma.UserUncheckedUpdateWithoutBillingOrdersInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutBillingOrdersInput, Prisma.UserUncheckedCreateWithoutBillingOrdersInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutBillingOrdersInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutBillingOrdersInput, Prisma.UserUncheckedUpdateWithoutBillingOrdersInput>
+}
+
+export type UserUpdateWithoutBillingOrdersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  roles?: Prisma.UserUpdaterolesInput | string[]
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  password?: Prisma.UserPasswordUpdateOneWithoutUserNestedInput
+  creditAccount?: Prisma.CreditAccountUpdateOneWithoutUserNestedInput
+  creditLedger?: Prisma.CreditLedgerUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  discountCodes?: Prisma.DiscountCodeUpdateManyWithoutRedeemedByUserNestedInput
+  moduleApiKeys?: Prisma.ModuleApiKeyUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutBillingOrdersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  roles?: Prisma.UserUpdaterolesInput | string[]
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  password?: Prisma.UserPasswordUncheckedUpdateOneWithoutUserNestedInput
+  creditAccount?: Prisma.CreditAccountUncheckedUpdateOneWithoutUserNestedInput
+  creditLedger?: Prisma.CreditLedgerUncheckedUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  discountCodes?: Prisma.DiscountCodeUncheckedUpdateManyWithoutRedeemedByUserNestedInput
+  moduleApiKeys?: Prisma.ModuleApiKeyUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutDiscountCodesInput = {
+  id?: string
+  name?: string | null
+  email?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  roles?: Prisma.UserCreaterolesInput | string[]
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  password?: Prisma.UserPasswordCreateNestedOneWithoutUserInput
+  creditAccount?: Prisma.CreditAccountCreateNestedOneWithoutUserInput
+  creditLedger?: Prisma.CreditLedgerCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  billingOrders?: Prisma.BillingOrderCreateNestedManyWithoutUserInput
+  moduleApiKeys?: Prisma.ModuleApiKeyCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutDiscountCodesInput = {
+  id?: string
+  name?: string | null
+  email?: string | null
+  emailVerified?: Date | string | null
+  image?: string | null
+  roles?: Prisma.UserCreaterolesInput | string[]
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  password?: Prisma.UserPasswordUncheckedCreateNestedOneWithoutUserInput
+  creditAccount?: Prisma.CreditAccountUncheckedCreateNestedOneWithoutUserInput
+  creditLedger?: Prisma.CreditLedgerUncheckedCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  billingOrders?: Prisma.BillingOrderUncheckedCreateNestedManyWithoutUserInput
+  moduleApiKeys?: Prisma.ModuleApiKeyUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutDiscountCodesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutDiscountCodesInput, Prisma.UserUncheckedCreateWithoutDiscountCodesInput>
+}
+
+export type UserUpsertWithoutDiscountCodesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutDiscountCodesInput, Prisma.UserUncheckedUpdateWithoutDiscountCodesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutDiscountCodesInput, Prisma.UserUncheckedCreateWithoutDiscountCodesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutDiscountCodesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutDiscountCodesInput, Prisma.UserUncheckedUpdateWithoutDiscountCodesInput>
+}
+
+export type UserUpdateWithoutDiscountCodesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  roles?: Prisma.UserUpdaterolesInput | string[]
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  password?: Prisma.UserPasswordUpdateOneWithoutUserNestedInput
+  creditAccount?: Prisma.CreditAccountUpdateOneWithoutUserNestedInput
+  creditLedger?: Prisma.CreditLedgerUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  billingOrders?: Prisma.BillingOrderUpdateManyWithoutUserNestedInput
+  moduleApiKeys?: Prisma.ModuleApiKeyUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutDiscountCodesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  roles?: Prisma.UserUpdaterolesInput | string[]
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  password?: Prisma.UserPasswordUncheckedUpdateOneWithoutUserNestedInput
+  creditAccount?: Prisma.CreditAccountUncheckedUpdateOneWithoutUserNestedInput
+  creditLedger?: Prisma.CreditLedgerUncheckedUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  billingOrders?: Prisma.BillingOrderUncheckedUpdateManyWithoutUserNestedInput
   moduleApiKeys?: Prisma.ModuleApiKeyUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -950,6 +1351,9 @@ export type UserCreateWithoutModuleApiKeysInput = {
   password?: Prisma.UserPasswordCreateNestedOneWithoutUserInput
   creditAccount?: Prisma.CreditAccountCreateNestedOneWithoutUserInput
   creditLedger?: Prisma.CreditLedgerCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  billingOrders?: Prisma.BillingOrderCreateNestedManyWithoutUserInput
+  discountCodes?: Prisma.DiscountCodeCreateNestedManyWithoutRedeemedByUserInput
 }
 
 export type UserUncheckedCreateWithoutModuleApiKeysInput = {
@@ -966,6 +1370,9 @@ export type UserUncheckedCreateWithoutModuleApiKeysInput = {
   password?: Prisma.UserPasswordUncheckedCreateNestedOneWithoutUserInput
   creditAccount?: Prisma.CreditAccountUncheckedCreateNestedOneWithoutUserInput
   creditLedger?: Prisma.CreditLedgerUncheckedCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  billingOrders?: Prisma.BillingOrderUncheckedCreateNestedManyWithoutUserInput
+  discountCodes?: Prisma.DiscountCodeUncheckedCreateNestedManyWithoutRedeemedByUserInput
 }
 
 export type UserCreateOrConnectWithoutModuleApiKeysInput = {
@@ -998,6 +1405,9 @@ export type UserUpdateWithoutModuleApiKeysInput = {
   password?: Prisma.UserPasswordUpdateOneWithoutUserNestedInput
   creditAccount?: Prisma.CreditAccountUpdateOneWithoutUserNestedInput
   creditLedger?: Prisma.CreditLedgerUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  billingOrders?: Prisma.BillingOrderUpdateManyWithoutUserNestedInput
+  discountCodes?: Prisma.DiscountCodeUpdateManyWithoutRedeemedByUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutModuleApiKeysInput = {
@@ -1014,6 +1424,9 @@ export type UserUncheckedUpdateWithoutModuleApiKeysInput = {
   password?: Prisma.UserPasswordUncheckedUpdateOneWithoutUserNestedInput
   creditAccount?: Prisma.CreditAccountUncheckedUpdateOneWithoutUserNestedInput
   creditLedger?: Prisma.CreditLedgerUncheckedUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  billingOrders?: Prisma.BillingOrderUncheckedUpdateManyWithoutUserNestedInput
+  discountCodes?: Prisma.DiscountCodeUncheckedUpdateManyWithoutRedeemedByUserNestedInput
 }
 
 
@@ -1025,6 +1438,9 @@ export type UserCountOutputType = {
   accounts: number
   sessions: number
   creditLedger: number
+  subscriptions: number
+  billingOrders: number
+  discountCodes: number
   moduleApiKeys: number
 }
 
@@ -1032,6 +1448,9 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   accounts?: boolean | UserCountOutputTypeCountAccountsArgs
   sessions?: boolean | UserCountOutputTypeCountSessionsArgs
   creditLedger?: boolean | UserCountOutputTypeCountCreditLedgerArgs
+  subscriptions?: boolean | UserCountOutputTypeCountSubscriptionsArgs
+  billingOrders?: boolean | UserCountOutputTypeCountBillingOrdersArgs
+  discountCodes?: boolean | UserCountOutputTypeCountDiscountCodesArgs
   moduleApiKeys?: boolean | UserCountOutputTypeCountModuleApiKeysArgs
 }
 
@@ -1069,6 +1488,27 @@ export type UserCountOutputTypeCountCreditLedgerArgs<ExtArgs extends runtime.Typ
 /**
  * UserCountOutputType without action
  */
+export type UserCountOutputTypeCountSubscriptionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SubscriptionWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountBillingOrdersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.BillingOrderWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountDiscountCodesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DiscountCodeWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
 export type UserCountOutputTypeCountModuleApiKeysArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.ModuleApiKeyWhereInput
 }
@@ -1088,6 +1528,9 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   password?: boolean | Prisma.User$passwordArgs<ExtArgs>
   creditAccount?: boolean | Prisma.User$creditAccountArgs<ExtArgs>
   creditLedger?: boolean | Prisma.User$creditLedgerArgs<ExtArgs>
+  subscriptions?: boolean | Prisma.User$subscriptionsArgs<ExtArgs>
+  billingOrders?: boolean | Prisma.User$billingOrdersArgs<ExtArgs>
+  discountCodes?: boolean | Prisma.User$discountCodesArgs<ExtArgs>
   moduleApiKeys?: boolean | Prisma.User$moduleApiKeysArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
@@ -1132,6 +1575,9 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   password?: boolean | Prisma.User$passwordArgs<ExtArgs>
   creditAccount?: boolean | Prisma.User$creditAccountArgs<ExtArgs>
   creditLedger?: boolean | Prisma.User$creditLedgerArgs<ExtArgs>
+  subscriptions?: boolean | Prisma.User$subscriptionsArgs<ExtArgs>
+  billingOrders?: boolean | Prisma.User$billingOrdersArgs<ExtArgs>
+  discountCodes?: boolean | Prisma.User$discountCodesArgs<ExtArgs>
   moduleApiKeys?: boolean | Prisma.User$moduleApiKeysArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
@@ -1146,6 +1592,9 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     password: Prisma.$UserPasswordPayload<ExtArgs> | null
     creditAccount: Prisma.$CreditAccountPayload<ExtArgs> | null
     creditLedger: Prisma.$CreditLedgerPayload<ExtArgs>[]
+    subscriptions: Prisma.$SubscriptionPayload<ExtArgs>[]
+    billingOrders: Prisma.$BillingOrderPayload<ExtArgs>[]
+    discountCodes: Prisma.$DiscountCodePayload<ExtArgs>[]
     moduleApiKeys: Prisma.$ModuleApiKeyPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -1556,6 +2005,9 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   password<T extends Prisma.User$passwordArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$passwordArgs<ExtArgs>>): Prisma.Prisma__UserPasswordClient<runtime.Types.Result.GetResult<Prisma.$UserPasswordPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   creditAccount<T extends Prisma.User$creditAccountArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$creditAccountArgs<ExtArgs>>): Prisma.Prisma__CreditAccountClient<runtime.Types.Result.GetResult<Prisma.$CreditAccountPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   creditLedger<T extends Prisma.User$creditLedgerArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$creditLedgerArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CreditLedgerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  subscriptions<T extends Prisma.User$subscriptionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$subscriptionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  billingOrders<T extends Prisma.User$billingOrdersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$billingOrdersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BillingOrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  discountCodes<T extends Prisma.User$discountCodesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$discountCodesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DiscountCodePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   moduleApiKeys<T extends Prisma.User$moduleApiKeysArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$moduleApiKeysArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ModuleApiKeyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -2094,6 +2546,78 @@ export type User$creditLedgerArgs<ExtArgs extends runtime.Types.Extensions.Inter
   take?: number
   skip?: number
   distinct?: Prisma.CreditLedgerScalarFieldEnum | Prisma.CreditLedgerScalarFieldEnum[]
+}
+
+/**
+ * User.subscriptions
+ */
+export type User$subscriptionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Subscription
+   */
+  select?: Prisma.SubscriptionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Subscription
+   */
+  omit?: Prisma.SubscriptionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SubscriptionInclude<ExtArgs> | null
+  where?: Prisma.SubscriptionWhereInput
+  orderBy?: Prisma.SubscriptionOrderByWithRelationInput | Prisma.SubscriptionOrderByWithRelationInput[]
+  cursor?: Prisma.SubscriptionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SubscriptionScalarFieldEnum | Prisma.SubscriptionScalarFieldEnum[]
+}
+
+/**
+ * User.billingOrders
+ */
+export type User$billingOrdersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the BillingOrder
+   */
+  select?: Prisma.BillingOrderSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the BillingOrder
+   */
+  omit?: Prisma.BillingOrderOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BillingOrderInclude<ExtArgs> | null
+  where?: Prisma.BillingOrderWhereInput
+  orderBy?: Prisma.BillingOrderOrderByWithRelationInput | Prisma.BillingOrderOrderByWithRelationInput[]
+  cursor?: Prisma.BillingOrderWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.BillingOrderScalarFieldEnum | Prisma.BillingOrderScalarFieldEnum[]
+}
+
+/**
+ * User.discountCodes
+ */
+export type User$discountCodesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the DiscountCode
+   */
+  select?: Prisma.DiscountCodeSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the DiscountCode
+   */
+  omit?: Prisma.DiscountCodeOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DiscountCodeInclude<ExtArgs> | null
+  where?: Prisma.DiscountCodeWhereInput
+  orderBy?: Prisma.DiscountCodeOrderByWithRelationInput | Prisma.DiscountCodeOrderByWithRelationInput[]
+  cursor?: Prisma.DiscountCodeWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.DiscountCodeScalarFieldEnum | Prisma.DiscountCodeScalarFieldEnum[]
 }
 
 /**

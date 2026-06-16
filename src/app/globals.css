@@ -274,9 +274,26 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;}
   color:var(--cream-dim);
   font-family:var(--sans);font-size:13px;
 }
+.credit-split{
+  margin-top:18px;
+  display:grid;gap:10px;
+}
+.credit-split div{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding-top:10px;
+  border-top:1px solid var(--line-soft);
+  font-family:var(--sans);font-size:13px;
+}
+.credit-split dt{
+  color:var(--cream-dim);
+}
+.credit-split dd{
+  color:var(--cream);
+  font-weight:800;
+}
 .account-actions{
   margin-top:18px;
-  display:grid;grid-template-columns:minmax(0,1fr) auto;
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
   gap:18px;align-items:start;
 }
 .account-action-card{
@@ -313,6 +330,31 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;}
   cursor:not-allowed;
   opacity:.6;
 }
+.billing-card{
+  grid-column:1 / -1;
+}
+.billing-controls{
+  display:grid;grid-template-columns:1fr 160px;gap:12px;
+}
+.billing-controls label{
+  display:grid;gap:7px;
+  color:var(--muted);
+  font-family:var(--sans);font-size:11px;font-weight:800;
+  letter-spacing:.12em;text-transform:uppercase;
+}
+.billing-controls input{
+  min-height:42px;
+  border:1px solid var(--line);
+  background:rgba(241,239,232,.82);
+  padding:0 12px;
+  color:var(--cream);
+  font-family:var(--sans);font-size:14px;font-weight:700;
+  letter-spacing:0;
+  text-transform:none;
+}
+.billing-options{
+  display:flex;flex-wrap:wrap;gap:10px;
+}
 .token-box{
   border:1px solid var(--line);
   background:rgba(241,239,232,.82);
@@ -345,6 +387,10 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;}
 .account-ledger{
   margin-top:18px;
 }
+.account-subscription,
+.account-orders{
+  margin-top:18px;
+}
 .account-panel-head{
   display:flex;align-items:center;justify-content:space-between;gap:16px;
 }
@@ -358,11 +404,14 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;}
   border-top:1px solid var(--line);
 }
 .ledger-row{
-  display:grid;grid-template-columns:1fr 1fr 96px 96px 170px;gap:14px;
+  display:grid;grid-template-columns:1fr 1fr 110px 96px 96px 170px;gap:14px;
   padding:13px 0;
   border-bottom:1px solid var(--line-soft);
   color:var(--cream-2);
   font-family:var(--sans);font-size:13px;line-height:1.45;
+}
+.ledger-row.order-row{
+  grid-template-columns:1.4fr 1.1fr 70px 90px 90px 170px;
 }
 .ledger-row span{
   overflow-wrap:anywhere;
@@ -392,6 +441,9 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;}
   }
   .account-grid,
   .account-actions{
+    grid-template-columns:1fr;
+  }
+  .billing-controls{
     grid-template-columns:1fr;
   }
   .account-facts div{

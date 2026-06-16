@@ -46,6 +46,7 @@ export type CreditLedgerMinAggregateOutputType = {
   amount: number | null
   balanceBefore: number | null
   balanceAfter: number | null
+  bucket: $Enums.CreditBucket | null
   idempotencyKey: string | null
   createdAt: Date | null
 }
@@ -58,6 +59,7 @@ export type CreditLedgerMaxAggregateOutputType = {
   amount: number | null
   balanceBefore: number | null
   balanceAfter: number | null
+  bucket: $Enums.CreditBucket | null
   idempotencyKey: string | null
   createdAt: Date | null
 }
@@ -70,6 +72,7 @@ export type CreditLedgerCountAggregateOutputType = {
   amount: number
   balanceBefore: number
   balanceAfter: number
+  bucket: number
   idempotencyKey: number
   metadata: number
   createdAt: number
@@ -97,6 +100,7 @@ export type CreditLedgerMinAggregateInputType = {
   amount?: true
   balanceBefore?: true
   balanceAfter?: true
+  bucket?: true
   idempotencyKey?: true
   createdAt?: true
 }
@@ -109,6 +113,7 @@ export type CreditLedgerMaxAggregateInputType = {
   amount?: true
   balanceBefore?: true
   balanceAfter?: true
+  bucket?: true
   idempotencyKey?: true
   createdAt?: true
 }
@@ -121,6 +126,7 @@ export type CreditLedgerCountAggregateInputType = {
   amount?: true
   balanceBefore?: true
   balanceAfter?: true
+  bucket?: true
   idempotencyKey?: true
   metadata?: true
   createdAt?: true
@@ -221,6 +227,7 @@ export type CreditLedgerGroupByOutputType = {
   amount: number
   balanceBefore: number
   balanceAfter: number
+  bucket: $Enums.CreditBucket
   idempotencyKey: string
   metadata: runtime.JsonValue | null
   createdAt: Date
@@ -257,6 +264,7 @@ export type CreditLedgerWhereInput = {
   amount?: Prisma.IntFilter<"CreditLedger"> | number
   balanceBefore?: Prisma.IntFilter<"CreditLedger"> | number
   balanceAfter?: Prisma.IntFilter<"CreditLedger"> | number
+  bucket?: Prisma.EnumCreditBucketFilter<"CreditLedger"> | $Enums.CreditBucket
   idempotencyKey?: Prisma.StringFilter<"CreditLedger"> | string
   metadata?: Prisma.JsonNullableFilter<"CreditLedger">
   createdAt?: Prisma.DateTimeFilter<"CreditLedger"> | Date | string
@@ -271,6 +279,7 @@ export type CreditLedgerOrderByWithRelationInput = {
   amount?: Prisma.SortOrder
   balanceBefore?: Prisma.SortOrder
   balanceAfter?: Prisma.SortOrder
+  bucket?: Prisma.SortOrder
   idempotencyKey?: Prisma.SortOrder
   metadata?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -279,7 +288,7 @@ export type CreditLedgerOrderByWithRelationInput = {
 
 export type CreditLedgerWhereUniqueInput = Prisma.AtLeast<{
   id?: string
-  userId_moduleKey_actionKey_idempotencyKey?: Prisma.CreditLedgerUserIdModuleKeyActionKeyIdempotencyKeyCompoundUniqueInput
+  userId_moduleKey_actionKey_idempotencyKey_bucket?: Prisma.CreditLedgerUserIdModuleKeyActionKeyIdempotencyKeyBucketCompoundUniqueInput
   AND?: Prisma.CreditLedgerWhereInput | Prisma.CreditLedgerWhereInput[]
   OR?: Prisma.CreditLedgerWhereInput[]
   NOT?: Prisma.CreditLedgerWhereInput | Prisma.CreditLedgerWhereInput[]
@@ -289,11 +298,12 @@ export type CreditLedgerWhereUniqueInput = Prisma.AtLeast<{
   amount?: Prisma.IntFilter<"CreditLedger"> | number
   balanceBefore?: Prisma.IntFilter<"CreditLedger"> | number
   balanceAfter?: Prisma.IntFilter<"CreditLedger"> | number
+  bucket?: Prisma.EnumCreditBucketFilter<"CreditLedger"> | $Enums.CreditBucket
   idempotencyKey?: Prisma.StringFilter<"CreditLedger"> | string
   metadata?: Prisma.JsonNullableFilter<"CreditLedger">
   createdAt?: Prisma.DateTimeFilter<"CreditLedger"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-}, "id" | "userId_moduleKey_actionKey_idempotencyKey">
+}, "id" | "userId_moduleKey_actionKey_idempotencyKey_bucket">
 
 export type CreditLedgerOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -303,6 +313,7 @@ export type CreditLedgerOrderByWithAggregationInput = {
   amount?: Prisma.SortOrder
   balanceBefore?: Prisma.SortOrder
   balanceAfter?: Prisma.SortOrder
+  bucket?: Prisma.SortOrder
   idempotencyKey?: Prisma.SortOrder
   metadata?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -324,6 +335,7 @@ export type CreditLedgerScalarWhereWithAggregatesInput = {
   amount?: Prisma.IntWithAggregatesFilter<"CreditLedger"> | number
   balanceBefore?: Prisma.IntWithAggregatesFilter<"CreditLedger"> | number
   balanceAfter?: Prisma.IntWithAggregatesFilter<"CreditLedger"> | number
+  bucket?: Prisma.EnumCreditBucketWithAggregatesFilter<"CreditLedger"> | $Enums.CreditBucket
   idempotencyKey?: Prisma.StringWithAggregatesFilter<"CreditLedger"> | string
   metadata?: Prisma.JsonNullableWithAggregatesFilter<"CreditLedger">
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"CreditLedger"> | Date | string
@@ -336,6 +348,7 @@ export type CreditLedgerCreateInput = {
   amount: number
   balanceBefore: number
   balanceAfter: number
+  bucket?: $Enums.CreditBucket
   idempotencyKey: string
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
@@ -350,6 +363,7 @@ export type CreditLedgerUncheckedCreateInput = {
   amount: number
   balanceBefore: number
   balanceAfter: number
+  bucket?: $Enums.CreditBucket
   idempotencyKey: string
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
@@ -362,6 +376,7 @@ export type CreditLedgerUpdateInput = {
   amount?: Prisma.IntFieldUpdateOperationsInput | number
   balanceBefore?: Prisma.IntFieldUpdateOperationsInput | number
   balanceAfter?: Prisma.IntFieldUpdateOperationsInput | number
+  bucket?: Prisma.EnumCreditBucketFieldUpdateOperationsInput | $Enums.CreditBucket
   idempotencyKey?: Prisma.StringFieldUpdateOperationsInput | string
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -376,6 +391,7 @@ export type CreditLedgerUncheckedUpdateInput = {
   amount?: Prisma.IntFieldUpdateOperationsInput | number
   balanceBefore?: Prisma.IntFieldUpdateOperationsInput | number
   balanceAfter?: Prisma.IntFieldUpdateOperationsInput | number
+  bucket?: Prisma.EnumCreditBucketFieldUpdateOperationsInput | $Enums.CreditBucket
   idempotencyKey?: Prisma.StringFieldUpdateOperationsInput | string
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -389,6 +405,7 @@ export type CreditLedgerCreateManyInput = {
   amount: number
   balanceBefore: number
   balanceAfter: number
+  bucket?: $Enums.CreditBucket
   idempotencyKey: string
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
@@ -401,6 +418,7 @@ export type CreditLedgerUpdateManyMutationInput = {
   amount?: Prisma.IntFieldUpdateOperationsInput | number
   balanceBefore?: Prisma.IntFieldUpdateOperationsInput | number
   balanceAfter?: Prisma.IntFieldUpdateOperationsInput | number
+  bucket?: Prisma.EnumCreditBucketFieldUpdateOperationsInput | $Enums.CreditBucket
   idempotencyKey?: Prisma.StringFieldUpdateOperationsInput | string
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -414,6 +432,7 @@ export type CreditLedgerUncheckedUpdateManyInput = {
   amount?: Prisma.IntFieldUpdateOperationsInput | number
   balanceBefore?: Prisma.IntFieldUpdateOperationsInput | number
   balanceAfter?: Prisma.IntFieldUpdateOperationsInput | number
+  bucket?: Prisma.EnumCreditBucketFieldUpdateOperationsInput | $Enums.CreditBucket
   idempotencyKey?: Prisma.StringFieldUpdateOperationsInput | string
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -429,11 +448,12 @@ export type CreditLedgerOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type CreditLedgerUserIdModuleKeyActionKeyIdempotencyKeyCompoundUniqueInput = {
+export type CreditLedgerUserIdModuleKeyActionKeyIdempotencyKeyBucketCompoundUniqueInput = {
   userId: string
   moduleKey: string
   actionKey: string
   idempotencyKey: string
+  bucket: $Enums.CreditBucket
 }
 
 export type CreditLedgerCountOrderByAggregateInput = {
@@ -444,6 +464,7 @@ export type CreditLedgerCountOrderByAggregateInput = {
   amount?: Prisma.SortOrder
   balanceBefore?: Prisma.SortOrder
   balanceAfter?: Prisma.SortOrder
+  bucket?: Prisma.SortOrder
   idempotencyKey?: Prisma.SortOrder
   metadata?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -463,6 +484,7 @@ export type CreditLedgerMaxOrderByAggregateInput = {
   amount?: Prisma.SortOrder
   balanceBefore?: Prisma.SortOrder
   balanceAfter?: Prisma.SortOrder
+  bucket?: Prisma.SortOrder
   idempotencyKey?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
@@ -475,6 +497,7 @@ export type CreditLedgerMinOrderByAggregateInput = {
   amount?: Prisma.SortOrder
   balanceBefore?: Prisma.SortOrder
   balanceAfter?: Prisma.SortOrder
+  bucket?: Prisma.SortOrder
   idempotencyKey?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
@@ -527,6 +550,10 @@ export type CreditLedgerUncheckedUpdateManyWithoutUserNestedInput = {
   deleteMany?: Prisma.CreditLedgerScalarWhereInput | Prisma.CreditLedgerScalarWhereInput[]
 }
 
+export type EnumCreditBucketFieldUpdateOperationsInput = {
+  set?: $Enums.CreditBucket
+}
+
 export type CreditLedgerCreateWithoutUserInput = {
   id?: string
   moduleKey: string
@@ -534,6 +561,7 @@ export type CreditLedgerCreateWithoutUserInput = {
   amount: number
   balanceBefore: number
   balanceAfter: number
+  bucket?: $Enums.CreditBucket
   idempotencyKey: string
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
@@ -546,6 +574,7 @@ export type CreditLedgerUncheckedCreateWithoutUserInput = {
   amount: number
   balanceBefore: number
   balanceAfter: number
+  bucket?: $Enums.CreditBucket
   idempotencyKey: string
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
@@ -588,6 +617,7 @@ export type CreditLedgerScalarWhereInput = {
   amount?: Prisma.IntFilter<"CreditLedger"> | number
   balanceBefore?: Prisma.IntFilter<"CreditLedger"> | number
   balanceAfter?: Prisma.IntFilter<"CreditLedger"> | number
+  bucket?: Prisma.EnumCreditBucketFilter<"CreditLedger"> | $Enums.CreditBucket
   idempotencyKey?: Prisma.StringFilter<"CreditLedger"> | string
   metadata?: Prisma.JsonNullableFilter<"CreditLedger">
   createdAt?: Prisma.DateTimeFilter<"CreditLedger"> | Date | string
@@ -600,6 +630,7 @@ export type CreditLedgerCreateManyUserInput = {
   amount: number
   balanceBefore: number
   balanceAfter: number
+  bucket?: $Enums.CreditBucket
   idempotencyKey: string
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
@@ -612,6 +643,7 @@ export type CreditLedgerUpdateWithoutUserInput = {
   amount?: Prisma.IntFieldUpdateOperationsInput | number
   balanceBefore?: Prisma.IntFieldUpdateOperationsInput | number
   balanceAfter?: Prisma.IntFieldUpdateOperationsInput | number
+  bucket?: Prisma.EnumCreditBucketFieldUpdateOperationsInput | $Enums.CreditBucket
   idempotencyKey?: Prisma.StringFieldUpdateOperationsInput | string
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -624,6 +656,7 @@ export type CreditLedgerUncheckedUpdateWithoutUserInput = {
   amount?: Prisma.IntFieldUpdateOperationsInput | number
   balanceBefore?: Prisma.IntFieldUpdateOperationsInput | number
   balanceAfter?: Prisma.IntFieldUpdateOperationsInput | number
+  bucket?: Prisma.EnumCreditBucketFieldUpdateOperationsInput | $Enums.CreditBucket
   idempotencyKey?: Prisma.StringFieldUpdateOperationsInput | string
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -636,6 +669,7 @@ export type CreditLedgerUncheckedUpdateManyWithoutUserInput = {
   amount?: Prisma.IntFieldUpdateOperationsInput | number
   balanceBefore?: Prisma.IntFieldUpdateOperationsInput | number
   balanceAfter?: Prisma.IntFieldUpdateOperationsInput | number
+  bucket?: Prisma.EnumCreditBucketFieldUpdateOperationsInput | $Enums.CreditBucket
   idempotencyKey?: Prisma.StringFieldUpdateOperationsInput | string
   metadata?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -651,6 +685,7 @@ export type CreditLedgerSelect<ExtArgs extends runtime.Types.Extensions.Internal
   amount?: boolean
   balanceBefore?: boolean
   balanceAfter?: boolean
+  bucket?: boolean
   idempotencyKey?: boolean
   metadata?: boolean
   createdAt?: boolean
@@ -665,6 +700,7 @@ export type CreditLedgerSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   amount?: boolean
   balanceBefore?: boolean
   balanceAfter?: boolean
+  bucket?: boolean
   idempotencyKey?: boolean
   metadata?: boolean
   createdAt?: boolean
@@ -679,6 +715,7 @@ export type CreditLedgerSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   amount?: boolean
   balanceBefore?: boolean
   balanceAfter?: boolean
+  bucket?: boolean
   idempotencyKey?: boolean
   metadata?: boolean
   createdAt?: boolean
@@ -693,12 +730,13 @@ export type CreditLedgerSelectScalar = {
   amount?: boolean
   balanceBefore?: boolean
   balanceAfter?: boolean
+  bucket?: boolean
   idempotencyKey?: boolean
   metadata?: boolean
   createdAt?: boolean
 }
 
-export type CreditLedgerOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "moduleKey" | "actionKey" | "amount" | "balanceBefore" | "balanceAfter" | "idempotencyKey" | "metadata" | "createdAt", ExtArgs["result"]["creditLedger"]>
+export type CreditLedgerOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "moduleKey" | "actionKey" | "amount" | "balanceBefore" | "balanceAfter" | "bucket" | "idempotencyKey" | "metadata" | "createdAt", ExtArgs["result"]["creditLedger"]>
 export type CreditLedgerInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
@@ -722,6 +760,7 @@ export type $CreditLedgerPayload<ExtArgs extends runtime.Types.Extensions.Intern
     amount: number
     balanceBefore: number
     balanceAfter: number
+    bucket: $Enums.CreditBucket
     idempotencyKey: string
     metadata: runtime.JsonValue | null
     createdAt: Date
@@ -1156,6 +1195,7 @@ export interface CreditLedgerFieldRefs {
   readonly amount: Prisma.FieldRef<"CreditLedger", 'Int'>
   readonly balanceBefore: Prisma.FieldRef<"CreditLedger", 'Int'>
   readonly balanceAfter: Prisma.FieldRef<"CreditLedger", 'Int'>
+  readonly bucket: Prisma.FieldRef<"CreditLedger", 'CreditBucket'>
   readonly idempotencyKey: Prisma.FieldRef<"CreditLedger", 'String'>
   readonly metadata: Prisma.FieldRef<"CreditLedger", 'Json'>
   readonly createdAt: Prisma.FieldRef<"CreditLedger", 'DateTime'>
