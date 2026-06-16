@@ -1,17 +1,18 @@
 "use client";
 
 import { signOut } from "next-auth/react";
-import ChromeNav, {
-  type NavItem,
-  type NavProps,
-  type NavUser,
+import { YibiNavAdapter } from "../../packages/chrome/src/yibi";
+import type {
+  NavItem,
+  NavProps,
+  NavUser,
 } from "../../packages/chrome/src/nav";
 
 export type { NavItem, NavProps, NavUser };
 
 export default function Nav(props: NavProps) {
   return (
-    <ChromeNav
+    <YibiNavAdapter
       {...props}
       onSignOut={async (callbackUrl) => {
         await signOut({ callbackUrl });

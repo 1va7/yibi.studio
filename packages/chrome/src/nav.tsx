@@ -7,13 +7,9 @@ import { useEffect, useRef, useState } from "react";
 import { FEISHU_SCHEDULER_URL } from "./links.js";
 
 export type NavUser = {
-  userId: string;
-  email: string | null;
-  name: string | null;
-  avatarUrl: string | null;
-  providers: string[];
-  roles: string[];
-  creditBalance: number;
+  label: string;
+  email?: string | null;
+  avatarUrl?: string | null;
 };
 
 export type NavItem = {
@@ -23,18 +19,28 @@ export type NavItem = {
   dropdown?: { href: string; label: string; tag?: string }[];
 };
 
-type MeResponse = {
+export type NavAccountBadge = {
+  key: string;
+  label: string;
+  value: string;
+};
+
+export type NavAuth = {
   user?: NavUser | null;
+  loginHref: string;
+  accountHref: string;
+  logoutHref?: string;
+  accountLabel?: string;
+  logoutLabel?: string;
+  badges?: NavAccountBadge[];
+  onSignOut?: (callbackUrl: string) => void | Promise<void>;
 };
 
 export type NavProps = {
   items?: NavItem[];
   schedulerUrl?: string;
   logoUrl?: string;
-  loginPath?: string;
-  meEndpoint?: string | null;
-  user?: NavUser | null;
-  onSignOut?: (callbackUrl: string) => void | Promise<void>;
+  auth?: NavAuth | null;
 };
 
 const DEFAULT_NAV_ITEMS: NavItem[] = [
@@ -67,25 +73,20 @@ const DEFAULT_NAV_ITEMS: NavItem[] = [
   { href: "/about", label: "关于", group: "about" },
 ];
 
-function formatCreditBalance(balance: number) {
-  return new Intl.NumberFormat("zh-CN").format(balance);
-}
-
 function AccountMenu({
-  user,
+  auth,
   currentPath,
-  onSignOut,
 }: {
-  user: NavUser;
+  auth: NavAuth & { user: NavUser };
   currentPath: string;
-  onSignOut?: (callbackUrl: string) => void | Promise<void>;
 }) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement | null>(null);
-  const label = user.name || user.email || "账户";
-  const creditBalance = formatCreditBalance(user.creditBalance);
-  const callbackUrl = pathname === "/account" ? "/" : currentPath || "/";
+  const label = auth.user.label || auth.user.email || "账户";
+  const accountLabel = auth.accountLabel || "个人看板";
+  const logoutLabel = auth.logoutLabel || "退出登录";
+  const callbackUrl = pathname === auth.accountHref ? "/" : currentPath || "/";
 
   useEffect(() => {
     if (!open) return;
@@ -106,11 +107,16 @@ function AccountMenu({
   }, [open]);
 
   const signOut = async () => {
-    if (onSignOut) {
-      await onSignOut(callbackUrl);
+    if (auth.onSignOut) {
+      await auth.onSignOut(callbackUrl);
       return;
     }
-    window.location.href = `/api/auth/signout?callbackUrl=${encodeURIComponent(callbackUrl)}`;
+    if (auth.logoutHref) {
+      window.location.href = auth.logoutHref.includes("?")
+        ? `${auth.logoutHref}&callbackUrl=${encodeURIComponent(callbackUrl)}`
+        : `${auth.logoutHref}?callbackUrl=${encodeURIComponent(callbackUrl)}`;
+      return;
+    }
   };
 
   return (
@@ -125,19 +131,27 @@ function AccountMenu({
       >
         <UserRound size={16} aria-hidden />
         <span className="nav-account-label">{label}</span>
-        <span className="nav-credit-badge" aria-label={`积分 ${creditBalance}`}>
-          {creditBalance} 积分
-        </span>
+        {auth.badges?.map((badge) => (
+          <span
+            key={badge.key}
+            className="nav-credit-badge"
+            aria-label={`${badge.label} ${badge.value}`}
+          >
+            {badge.value} {badge.label}
+          </span>
+        ))}
       </button>
       <div className="account-menu-popover" role="menu">
-        <Link href="/account" role="menuitem" onClick={() => setOpen(false)}>
+        <Link href={auth.accountHref} role="menuitem" onClick={() => setOpen(false)}>
           <UserRound size={15} aria-hidden />
-          <span>个人看板</span>
+          <span>{accountLabel}</span>
         </Link>
-        <button type="button" role="menuitem" onClick={signOut}>
-          <LogOut size={15} aria-hidden />
-          <span>退出登录</span>
-        </button>
+        {(auth.onSignOut || auth.logoutHref) && (
+          <button type="button" role="menuitem" onClick={signOut}>
+            <LogOut size={15} aria-hidden />
+            <span>{logoutLabel}</span>
+          </button>
+        )}
       </div>
     </div>
   );
@@ -147,59 +161,19 @@ export default function Nav({
   items = DEFAULT_NAV_ITEMS,
   schedulerUrl = FEISHU_SCHEDULER_URL,
   logoUrl = "/assets/logo.png",
-  loginPath = "/login",
-  meEndpoint = "/api/me",
-  user,
-  onSignOut,
+  auth,
 }: NavProps) {
   const pathname = usePathname();
   const [openGroup, setOpenGroup] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileGroup, setMobileGroup] = useState<string | null>(null);
   const [currentPath, setCurrentPath] = useState(pathname);
-  const [accountUser, setAccountUser] = useState<NavUser | null>(user ?? null);
   const drawerRef = useRef<HTMLDivElement | null>(null);
   const burgerRef = useRef<HTMLButtonElement | null>(null);
-  const loginHref =
-    pathname === loginPath
-      ? loginPath
-      : `${loginPath}?callbackUrl=${encodeURIComponent(currentPath)}`;
 
   useEffect(() => {
     setCurrentPath(window.location.pathname + window.location.search);
   }, [pathname]);
-
-  useEffect(() => {
-    if (user !== undefined) {
-      setAccountUser(user);
-      return;
-    }
-    if (!meEndpoint) return;
-
-    let cancelled = false;
-
-    async function loadSession() {
-      try {
-        const response = await fetch(meEndpoint!, {
-          credentials: "include",
-          cache: "no-store",
-        });
-        if (!response.ok) {
-          if (!cancelled) setAccountUser(null);
-          return;
-        }
-        const data = (await response.json()) as MeResponse;
-        if (!cancelled) setAccountUser(data.user || null);
-      } catch {
-        if (!cancelled) setAccountUser(null);
-      }
-    }
-
-    loadSession();
-    return () => {
-      cancelled = true;
-    };
-  }, [meEndpoint, pathname, user]);
 
   useEffect(() => {
     setMobileOpen(false);
@@ -285,14 +259,13 @@ export default function Nav({
           })}
         </nav>
         <div className="nav-right">
-          {accountUser ? (
+          {auth?.user ? (
             <AccountMenu
-              user={accountUser}
+              auth={auth as NavAuth & { user: NavUser }}
               currentPath={currentPath}
-              onSignOut={onSignOut}
             />
           ) : (
-            <Link className="nav-login" href={loginHref} aria-label="登录">
+            <Link className="nav-login" href={auth?.loginHref || "/login"} aria-label="登录">
               <LogIn size={16} aria-hidden />
               <span>登录</span>
             </Link>
