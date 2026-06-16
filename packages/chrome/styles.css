@@ -259,6 +259,36 @@
   color: #fff;
 }
 
+.nav-account {
+  width: auto;
+  max-width: 260px;
+}
+
+.nav-account-label {
+  min-width: 0;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
+}
+
+.nav-credit-badge {
+  flex: none;
+  padding: 3px 7px;
+  border: 1px solid rgba(220, 88, 14, .28);
+  background: rgba(255, 255, 255, .42);
+  color: var(--orange-deep);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .04em;
+  line-height: 1;
+  text-transform: none;
+}
+
+.nav-account:hover .nav-credit-badge {
+  border-color: rgba(255, 255, 255, .46);
+  background: rgba(255, 255, 255, .18);
+  color: #fff;
+}
+
 .account-menu {
   position: relative;
 }
@@ -1129,6 +1159,16 @@
 
   .nav-right {
     gap: 8px;
+  }
+
+  .nav-account {
+    max-width: 190px;
+    padding: 0 10px;
+  }
+
+  .nav-credit-badge {
+    padding: 3px 5px;
+    font-size: 10px;
   }
 
   .social-dock .sd-icon {

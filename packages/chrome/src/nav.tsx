@@ -67,6 +67,10 @@ const DEFAULT_NAV_ITEMS: NavItem[] = [
   { href: "/about", label: "关于", group: "about" },
 ];
 
+function formatCreditBalance(balance: number) {
+  return new Intl.NumberFormat("zh-CN").format(balance);
+}
+
 function AccountMenu({
   user,
   currentPath,
@@ -80,6 +84,7 @@ function AccountMenu({
   const [open, setOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement | null>(null);
   const label = user.name || user.email || "账户";
+  const creditBalance = formatCreditBalance(user.creditBalance);
   const callbackUrl = pathname === "/account" ? "/" : currentPath || "/";
 
   useEffect(() => {
@@ -119,7 +124,10 @@ function AccountMenu({
         onClick={() => setOpen((value) => !value)}
       >
         <UserRound size={16} aria-hidden />
-        <span>{label}</span>
+        <span className="nav-account-label">{label}</span>
+        <span className="nav-credit-badge" aria-label={`积分 ${creditBalance}`}>
+          {creditBalance} 积分
+        </span>
       </button>
       <div className="account-menu-popover" role="menu">
         <Link href="/account" role="menuitem" onClick={() => setOpen(false)}>

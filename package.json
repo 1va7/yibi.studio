@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "bash scripts/dev-env.sh",
     "build": "DATABASE_URL=${DATABASE_URL:-postgresql://yibi:yibi_dev_password@localhost:5432/yibi_studio?schema=public} prisma generate && next build",
     "start": "next start",
     "db:migrate": "prisma migrate deploy",
