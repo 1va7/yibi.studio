@@ -1,6 +1,6 @@
 {
   "name": "@yibi-studio/chrome",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Yibi Studio site navigation and footer components.",
   "type": "module",
   "license": "UNLICENSED",
