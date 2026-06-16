@@ -19,6 +19,8 @@
 
 # production
 /build
+/packages/chrome/dist/
+/packages/chrome/*.tgz
 
 # misc
 .DS_Store

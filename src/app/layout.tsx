@@ -5,6 +5,7 @@ import FloatingCTA from "@/components/FloatingCTA";
 import Analytics from "@/components/Analytics";
 import { svgQR } from "@/lib/qr";
 import "./globals.css";
+import "../../packages/chrome/styles.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://yibi.studio"),

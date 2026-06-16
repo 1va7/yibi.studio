@@ -28,16 +28,22 @@ export type AggregateCreditAccount = {
 
 export type CreditAccountAvgAggregateOutputType = {
   balance: number | null
+  paidBalance: number | null
+  subscriptionBalance: number | null
 }
 
 export type CreditAccountSumAggregateOutputType = {
   balance: number | null
+  paidBalance: number | null
+  subscriptionBalance: number | null
 }
 
 export type CreditAccountMinAggregateOutputType = {
   id: string | null
   userId: string | null
   balance: number | null
+  paidBalance: number | null
+  subscriptionBalance: number | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -46,6 +52,8 @@ export type CreditAccountMaxAggregateOutputType = {
   id: string | null
   userId: string | null
   balance: number | null
+  paidBalance: number | null
+  subscriptionBalance: number | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -54,6 +62,8 @@ export type CreditAccountCountAggregateOutputType = {
   id: number
   userId: number
   balance: number
+  paidBalance: number
+  subscriptionBalance: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -62,16 +72,22 @@ export type CreditAccountCountAggregateOutputType = {
 
 export type CreditAccountAvgAggregateInputType = {
   balance?: true
+  paidBalance?: true
+  subscriptionBalance?: true
 }
 
 export type CreditAccountSumAggregateInputType = {
   balance?: true
+  paidBalance?: true
+  subscriptionBalance?: true
 }
 
 export type CreditAccountMinAggregateInputType = {
   id?: true
   userId?: true
   balance?: true
+  paidBalance?: true
+  subscriptionBalance?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -80,6 +96,8 @@ export type CreditAccountMaxAggregateInputType = {
   id?: true
   userId?: true
   balance?: true
+  paidBalance?: true
+  subscriptionBalance?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -88,6 +106,8 @@ export type CreditAccountCountAggregateInputType = {
   id?: true
   userId?: true
   balance?: true
+  paidBalance?: true
+  subscriptionBalance?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -183,6 +203,8 @@ export type CreditAccountGroupByOutputType = {
   id: string
   userId: string
   balance: number
+  paidBalance: number
+  subscriptionBalance: number
   createdAt: Date
   updatedAt: Date
   _count: CreditAccountCountAggregateOutputType | null
@@ -214,6 +236,8 @@ export type CreditAccountWhereInput = {
   id?: Prisma.StringFilter<"CreditAccount"> | string
   userId?: Prisma.StringFilter<"CreditAccount"> | string
   balance?: Prisma.IntFilter<"CreditAccount"> | number
+  paidBalance?: Prisma.IntFilter<"CreditAccount"> | number
+  subscriptionBalance?: Prisma.IntFilter<"CreditAccount"> | number
   createdAt?: Prisma.DateTimeFilter<"CreditAccount"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"CreditAccount"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -223,6 +247,8 @@ export type CreditAccountOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   balance?: Prisma.SortOrder
+  paidBalance?: Prisma.SortOrder
+  subscriptionBalance?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
@@ -235,6 +261,8 @@ export type CreditAccountWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.CreditAccountWhereInput[]
   NOT?: Prisma.CreditAccountWhereInput | Prisma.CreditAccountWhereInput[]
   balance?: Prisma.IntFilter<"CreditAccount"> | number
+  paidBalance?: Prisma.IntFilter<"CreditAccount"> | number
+  subscriptionBalance?: Prisma.IntFilter<"CreditAccount"> | number
   createdAt?: Prisma.DateTimeFilter<"CreditAccount"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"CreditAccount"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -244,6 +272,8 @@ export type CreditAccountOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   balance?: Prisma.SortOrder
+  paidBalance?: Prisma.SortOrder
+  subscriptionBalance?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.CreditAccountCountOrderByAggregateInput
@@ -260,6 +290,8 @@ export type CreditAccountScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"CreditAccount"> | string
   userId?: Prisma.StringWithAggregatesFilter<"CreditAccount"> | string
   balance?: Prisma.IntWithAggregatesFilter<"CreditAccount"> | number
+  paidBalance?: Prisma.IntWithAggregatesFilter<"CreditAccount"> | number
+  subscriptionBalance?: Prisma.IntWithAggregatesFilter<"CreditAccount"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"CreditAccount"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"CreditAccount"> | Date | string
 }
@@ -267,6 +299,8 @@ export type CreditAccountScalarWhereWithAggregatesInput = {
 export type CreditAccountCreateInput = {
   id?: string
   balance?: number
+  paidBalance?: number
+  subscriptionBalance?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutCreditAccountInput
@@ -276,6 +310,8 @@ export type CreditAccountUncheckedCreateInput = {
   id?: string
   userId: string
   balance?: number
+  paidBalance?: number
+  subscriptionBalance?: number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -283,6 +319,8 @@ export type CreditAccountUncheckedCreateInput = {
 export type CreditAccountUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   balance?: Prisma.IntFieldUpdateOperationsInput | number
+  paidBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  subscriptionBalance?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutCreditAccountNestedInput
@@ -292,6 +330,8 @@ export type CreditAccountUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   balance?: Prisma.IntFieldUpdateOperationsInput | number
+  paidBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  subscriptionBalance?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -300,6 +340,8 @@ export type CreditAccountCreateManyInput = {
   id?: string
   userId: string
   balance?: number
+  paidBalance?: number
+  subscriptionBalance?: number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -307,6 +349,8 @@ export type CreditAccountCreateManyInput = {
 export type CreditAccountUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   balance?: Prisma.IntFieldUpdateOperationsInput | number
+  paidBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  subscriptionBalance?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -315,6 +359,8 @@ export type CreditAccountUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   balance?: Prisma.IntFieldUpdateOperationsInput | number
+  paidBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  subscriptionBalance?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -328,18 +374,24 @@ export type CreditAccountCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   balance?: Prisma.SortOrder
+  paidBalance?: Prisma.SortOrder
+  subscriptionBalance?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type CreditAccountAvgOrderByAggregateInput = {
   balance?: Prisma.SortOrder
+  paidBalance?: Prisma.SortOrder
+  subscriptionBalance?: Prisma.SortOrder
 }
 
 export type CreditAccountMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   balance?: Prisma.SortOrder
+  paidBalance?: Prisma.SortOrder
+  subscriptionBalance?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -348,12 +400,16 @@ export type CreditAccountMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   balance?: Prisma.SortOrder
+  paidBalance?: Prisma.SortOrder
+  subscriptionBalance?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type CreditAccountSumOrderByAggregateInput = {
   balance?: Prisma.SortOrder
+  paidBalance?: Prisma.SortOrder
+  subscriptionBalance?: Prisma.SortOrder
 }
 
 export type CreditAccountCreateNestedOneWithoutUserInput = {
@@ -399,6 +455,8 @@ export type IntFieldUpdateOperationsInput = {
 export type CreditAccountCreateWithoutUserInput = {
   id?: string
   balance?: number
+  paidBalance?: number
+  subscriptionBalance?: number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -406,6 +464,8 @@ export type CreditAccountCreateWithoutUserInput = {
 export type CreditAccountUncheckedCreateWithoutUserInput = {
   id?: string
   balance?: number
+  paidBalance?: number
+  subscriptionBalance?: number
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -429,6 +489,8 @@ export type CreditAccountUpdateToOneWithWhereWithoutUserInput = {
 export type CreditAccountUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   balance?: Prisma.IntFieldUpdateOperationsInput | number
+  paidBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  subscriptionBalance?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -436,6 +498,8 @@ export type CreditAccountUpdateWithoutUserInput = {
 export type CreditAccountUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   balance?: Prisma.IntFieldUpdateOperationsInput | number
+  paidBalance?: Prisma.IntFieldUpdateOperationsInput | number
+  subscriptionBalance?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -446,6 +510,8 @@ export type CreditAccountSelect<ExtArgs extends runtime.Types.Extensions.Interna
   id?: boolean
   userId?: boolean
   balance?: boolean
+  paidBalance?: boolean
+  subscriptionBalance?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -455,6 +521,8 @@ export type CreditAccountSelectCreateManyAndReturn<ExtArgs extends runtime.Types
   id?: boolean
   userId?: boolean
   balance?: boolean
+  paidBalance?: boolean
+  subscriptionBalance?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -464,6 +532,8 @@ export type CreditAccountSelectUpdateManyAndReturn<ExtArgs extends runtime.Types
   id?: boolean
   userId?: boolean
   balance?: boolean
+  paidBalance?: boolean
+  subscriptionBalance?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -473,11 +543,13 @@ export type CreditAccountSelectScalar = {
   id?: boolean
   userId?: boolean
   balance?: boolean
+  paidBalance?: boolean
+  subscriptionBalance?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type CreditAccountOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "balance" | "createdAt" | "updatedAt", ExtArgs["result"]["creditAccount"]>
+export type CreditAccountOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "balance" | "paidBalance" | "subscriptionBalance" | "createdAt" | "updatedAt", ExtArgs["result"]["creditAccount"]>
 export type CreditAccountInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
@@ -497,6 +569,8 @@ export type $CreditAccountPayload<ExtArgs extends runtime.Types.Extensions.Inter
     id: string
     userId: string
     balance: number
+    paidBalance: number
+    subscriptionBalance: number
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["creditAccount"]>
@@ -926,6 +1000,8 @@ export interface CreditAccountFieldRefs {
   readonly id: Prisma.FieldRef<"CreditAccount", 'String'>
   readonly userId: Prisma.FieldRef<"CreditAccount", 'String'>
   readonly balance: Prisma.FieldRef<"CreditAccount", 'Int'>
+  readonly paidBalance: Prisma.FieldRef<"CreditAccount", 'Int'>
+  readonly subscriptionBalance: Prisma.FieldRef<"CreditAccount", 'Int'>
   readonly createdAt: Prisma.FieldRef<"CreditAccount", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"CreditAccount", 'DateTime'>
 }

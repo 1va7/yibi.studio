@@ -77,6 +77,21 @@ export type CreditAccount = Prisma.CreditAccountModel
  */
 export type CreditLedger = Prisma.CreditLedgerModel
 /**
+ * Model Subscription
+ * 
+ */
+export type Subscription = Prisma.SubscriptionModel
+/**
+ * Model BillingOrder
+ * 
+ */
+export type BillingOrder = Prisma.BillingOrderModel
+/**
+ * Model DiscountCode
+ * 
+ */
+export type DiscountCode = Prisma.DiscountCodeModel
+/**
  * Model ModuleApiKey
  * 
  */

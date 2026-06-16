@@ -1,0 +1,51 @@
+{
+  "name": "@yibi-studio/chrome",
+  "version": "0.1.1",
+  "description": "Yibi Studio site navigation and footer components.",
+  "type": "module",
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yibi-studio/yibi.studio.git",
+    "directory": "packages/chrome"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "restricted"
+  },
+  "files": [
+    "dist",
+    "styles.css",
+    "README.md"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./yibi": {
+      "types": "./dist/yibi.d.ts",
+      "import": "./dist/yibi.js"
+    },
+    "./styles.css": "./styles.css"
+  },
+  "types": "./dist/index.d.ts",
+  "sideEffects": [
+    "./styles.css"
+  ],
+  "scripts": {
+    "build": "rm -rf dist .tsbuildinfo && tsc -p tsconfig.json",
+    "prepack": "npm run build"
+  },
+  "peerDependencies": {
+    "lucide-react": ">=1.16.0",
+    "next": ">=16.2.6",
+    "react": ">=19.2.4",
+    "react-dom": ">=19.2.4"
+  },
+  "devDependencies": {
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "typescript": "^5"
+  }
+}

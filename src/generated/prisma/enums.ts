@@ -9,7 +9,46 @@
 * 🟢 You can import this file directly.
 */
 
+export const CreditBucket = {
+  subscription: 'subscription',
+  paid: 'paid'
+} as const
+
+export type CreditBucket = (typeof CreditBucket)[keyof typeof CreditBucket]
 
 
-// This file is empty because there are no enums in the schema.
-export {}
+export const SubscriptionPlan = {
+  monthly: 'monthly',
+  yearly: 'yearly'
+} as const
+
+export type SubscriptionPlan = (typeof SubscriptionPlan)[keyof typeof SubscriptionPlan]
+
+
+export const SubscriptionStatus = {
+  active: 'active',
+  canceled: 'canceled',
+  expired: 'expired'
+} as const
+
+export type SubscriptionStatus = (typeof SubscriptionStatus)[keyof typeof SubscriptionStatus]
+
+
+export const BillingItemType = {
+  monthly_subscription: 'monthly_subscription',
+  yearly_subscription: 'yearly_subscription',
+  credit_pack: 'credit_pack'
+} as const
+
+export type BillingItemType = (typeof BillingItemType)[keyof typeof BillingItemType]
+
+
+export const BillingOrderStatus = {
+  pending: 'pending',
+  paid: 'paid',
+  completed: 'completed',
+  failed: 'failed',
+  canceled: 'canceled'
+} as const
+
+export type BillingOrderStatus = (typeof BillingOrderStatus)[keyof typeof BillingOrderStatus]

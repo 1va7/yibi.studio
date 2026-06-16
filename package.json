@@ -3,11 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "bash scripts/dev-env.sh",
     "build": "DATABASE_URL=${DATABASE_URL:-postgresql://yibi:yibi_dev_password@localhost:5432/yibi_studio?schema=public} prisma generate && next build",
     "start": "next start",
     "db:migrate": "prisma migrate deploy",
-    "db:generate": "prisma generate"
+    "db:generate": "prisma generate",
+    "build:chrome": "cd packages/chrome && npm run build",
+    "pack:chrome": "cd packages/chrome && npm pack --dry-run",
+    "publish:chrome": "cd packages/chrome && npm publish"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.11.2",

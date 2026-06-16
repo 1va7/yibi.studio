@@ -425,10 +425,6 @@ export type ModuleApiKeyUncheckedUpdateManyWithoutUserNestedInput = {
   deleteMany?: Prisma.ModuleApiKeyScalarWhereInput | Prisma.ModuleApiKeyScalarWhereInput[]
 }
 
-export type BoolFieldUpdateOperationsInput = {
-  set?: boolean
-}
-
 export type ModuleApiKeyCreateWithoutUserInput = {
   id?: string
   moduleKey: string

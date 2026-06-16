@@ -19,6 +19,9 @@ model User {
   password       UserPassword?
   creditAccount  CreditAccount?
   creditLedger   CreditLedger[]
+  subscriptions  Subscription[]
+  billingOrders  BillingOrder[]
+  discountCodes  DiscountCode[]   @relation("DiscountCodeRedeemedByUser")
   moduleApiKeys  ModuleApiKey[]
   createdAt      DateTime         @default(now())
   updatedAt      DateTime         @updatedAt
@@ -68,12 +71,14 @@ model UserPassword {
 }
 
 model CreditAccount {
-  id        String   @id @default(cuid())
-  userId    String   @unique
-  balance   Int      @default(0)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id                  String   @id @default(cuid())
+  userId              String   @unique
+  balance             Int      @default(0)
+  paidBalance         Int      @default(0)
+  subscriptionBalance Int      @default(0)
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+  user                User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model CreditLedger {
@@ -84,13 +89,80 @@ model CreditLedger {
   amount         Int
   balanceBefore  Int
   balanceAfter   Int
+  bucket         CreditBucket @default(paid)
   idempotencyKey String
   metadata       Json?
   createdAt      DateTime @default(now())
   user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@unique([userId, moduleKey, actionKey, idempotencyKey])
+  @@unique([userId, moduleKey, actionKey, idempotencyKey, bucket])
+  @@index([userId, moduleKey, actionKey, idempotencyKey])
   @@index([userId, createdAt])
+}
+
+model Subscription {
+  id                  String             @id @default(cuid())
+  userId              String
+  plan                SubscriptionPlan
+  status              SubscriptionStatus @default(active)
+  periodStart         DateTime
+  periodEnd           DateTime
+  entitlementEnd      DateTime
+  nextRefreshAt       DateTime
+  cancelAtPeriodEnd   Boolean            @default(false)
+  canceledAt          DateTime?
+  lastRefreshedPeriod DateTime
+  createdAt           DateTime           @default(now())
+  updatedAt           DateTime           @updatedAt
+  user                User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  orders              BillingOrder[]
+
+  @@index([userId, status])
+  @@index([nextRefreshAt])
+}
+
+model BillingOrder {
+  id                String             @id @default(cuid())
+  orderNo           String             @unique
+  userId            String
+  itemType          BillingItemType
+  quantity          Int                @default(1)
+  originalAmountFen Int
+  discountAmountFen Int                @default(0)
+  payableAmountFen  Int
+  currency          String             @default("CNY")
+  status            BillingOrderStatus @default(pending)
+  entitlement       Json
+  discountCodeId    String?
+  subscriptionId    String?
+  gateway           String?
+  gatewayTradeNo    String?
+  paidAt            DateTime?
+  completedAt       DateTime?
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+  user              User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  discountCode      DiscountCode?      @relation(fields: [discountCodeId], references: [id], onDelete: SetNull)
+  subscription      Subscription?      @relation(fields: [subscriptionId], references: [id], onDelete: SetNull)
+
+  @@index([userId, createdAt])
+  @@index([status])
+}
+
+model DiscountCode {
+  id                 String         @id @default(cuid())
+  code               String         @unique
+  amountOffFen       Int
+  active             Boolean        @default(true)
+  redeemedAt         DateTime?
+  redeemedByUserId   String?
+  redeemedOrderId    String?
+  createdAt          DateTime       @default(now())
+  updatedAt          DateTime       @updatedAt
+  redeemedByUser     User?          @relation("DiscountCodeRedeemedByUser", fields: [redeemedByUserId], references: [id], onDelete: SetNull)
+  orders             BillingOrder[]
+
+  @@index([active])
 }
 
 model ModuleApiKey {
@@ -105,4 +177,34 @@ model ModuleApiKey {
   user        User?     @relation(fields: [userId], references: [id], onDelete: SetNull)
 
   @@index([moduleKey])
+}
+
+enum CreditBucket {
+  subscription
+  paid
+}
+
+enum SubscriptionPlan {
+  monthly
+  yearly
+}
+
+enum SubscriptionStatus {
+  active
+  canceled
+  expired
+}
+
+enum BillingItemType {
+  monthly_subscription
+  yearly_subscription
+  credit_pack
+}
+
+enum BillingOrderStatus {
+  pending
+  paid
+  completed
+  failed
+  canceled
 }

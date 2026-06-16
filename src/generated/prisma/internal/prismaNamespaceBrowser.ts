@@ -58,6 +58,9 @@ export const ModelName = {
   UserPassword: 'UserPassword',
   CreditAccount: 'CreditAccount',
   CreditLedger: 'CreditLedger',
+  Subscription: 'Subscription',
+  BillingOrder: 'BillingOrder',
+  DiscountCode: 'DiscountCode',
   ModuleApiKey: 'ModuleApiKey'
 } as const
 
@@ -143,6 +146,8 @@ export const CreditAccountScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   balance: 'balance',
+  paidBalance: 'paidBalance',
+  subscriptionBalance: 'subscriptionBalance',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -158,12 +163,72 @@ export const CreditLedgerScalarFieldEnum = {
   amount: 'amount',
   balanceBefore: 'balanceBefore',
   balanceAfter: 'balanceAfter',
+  bucket: 'bucket',
   idempotencyKey: 'idempotencyKey',
   metadata: 'metadata',
   createdAt: 'createdAt'
 } as const
 
 export type CreditLedgerScalarFieldEnum = (typeof CreditLedgerScalarFieldEnum)[keyof typeof CreditLedgerScalarFieldEnum]
+
+
+export const SubscriptionScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  plan: 'plan',
+  status: 'status',
+  periodStart: 'periodStart',
+  periodEnd: 'periodEnd',
+  entitlementEnd: 'entitlementEnd',
+  nextRefreshAt: 'nextRefreshAt',
+  cancelAtPeriodEnd: 'cancelAtPeriodEnd',
+  canceledAt: 'canceledAt',
+  lastRefreshedPeriod: 'lastRefreshedPeriod',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SubscriptionScalarFieldEnum = (typeof SubscriptionScalarFieldEnum)[keyof typeof SubscriptionScalarFieldEnum]
+
+
+export const BillingOrderScalarFieldEnum = {
+  id: 'id',
+  orderNo: 'orderNo',
+  userId: 'userId',
+  itemType: 'itemType',
+  quantity: 'quantity',
+  originalAmountFen: 'originalAmountFen',
+  discountAmountFen: 'discountAmountFen',
+  payableAmountFen: 'payableAmountFen',
+  currency: 'currency',
+  status: 'status',
+  entitlement: 'entitlement',
+  discountCodeId: 'discountCodeId',
+  subscriptionId: 'subscriptionId',
+  gateway: 'gateway',
+  gatewayTradeNo: 'gatewayTradeNo',
+  paidAt: 'paidAt',
+  completedAt: 'completedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type BillingOrderScalarFieldEnum = (typeof BillingOrderScalarFieldEnum)[keyof typeof BillingOrderScalarFieldEnum]
+
+
+export const DiscountCodeScalarFieldEnum = {
+  id: 'id',
+  code: 'code',
+  amountOffFen: 'amountOffFen',
+  active: 'active',
+  redeemedAt: 'redeemedAt',
+  redeemedByUserId: 'redeemedByUserId',
+  redeemedOrderId: 'redeemedOrderId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type DiscountCodeScalarFieldEnum = (typeof DiscountCodeScalarFieldEnum)[keyof typeof DiscountCodeScalarFieldEnum]
 
 
 export const ModuleApiKeyScalarFieldEnum = {
@@ -194,6 +259,13 @@ export const NullableJsonNullValueInput = {
 } as const
 
 export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
+
+
+export const JsonNullValueInput = {
+  JsonNull: JsonNull
+} as const
+
+export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
 
 
 export const QueryMode = {
