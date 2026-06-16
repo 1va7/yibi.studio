@@ -1,0 +1,47 @@
+name: Publish Chrome
+
+on:
+  push:
+    tags:
+      - "chrome-v*"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          registry-url: https://npm.pkg.github.com
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check package version
+        working-directory: packages/chrome
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          VERSION="$(node -p "require('./package.json').version")"
+          if npm view "@yibi-studio/chrome@$VERSION" version --registry=https://npm.pkg.github.com >/dev/null 2>&1; then
+            echo "@yibi-studio/chrome@$VERSION already exists. Bump packages/chrome/package.json before publishing."
+            exit 1
+          fi
+
+      - name: Build chrome package
+        run: npm run build:chrome
+
+      - name: Publish chrome package
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npm run publish:chrome

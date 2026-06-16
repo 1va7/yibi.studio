@@ -113,6 +113,11 @@ export const DEFAULT_SOCIAL_ENTRIES: SocialEntry[] = [
   },
 ];
 
+export const SOCIAL_BY_KEY: Record<SocialKey, SocialEntry> =
+  Object.fromEntries(
+    DEFAULT_SOCIAL_ENTRIES.map((entry) => [entry.key, entry]),
+  ) as Record<SocialKey, SocialEntry>;
+
 export default function SocialDock({
   variant = "nav",
   className = "",
@@ -167,6 +172,11 @@ export default function SocialDock({
       onMouseLeave={scheduleClose}
       data-variant={variant}
     >
+      {variant === "hero" && (
+        <span className="sd-hero-label" aria-hidden>
+          FOLLOW
+        </span>
+      )}
       {entries.map((entry) => {
         const isActive = active === entry.key;
         const hasQr = !!entry.qrImage;
